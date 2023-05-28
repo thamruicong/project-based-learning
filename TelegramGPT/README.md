@@ -10,5 +10,5 @@ Dependencies:
 - 
 
 References:
-- [Telegram Bot Features](https://core.telegram.org/bots/features#what-features-do-bots-have)
-- [Telegram Bot API](https://core.telegram.org/bots/api#authorizing-your-bot)
+- [Telegram Bot Features](https://core.telegram.org/bots/features)
+- [Telegram Bot API](https://core.telegram.org/bots/api)
