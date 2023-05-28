@@ -10,3 +10,6 @@ Dependencies:
 - lxml 4.9.2
 - beautifulsoup4 4.12.2
 - Python 3.9.13
+
+References:
+- [BeautifulSoup4 API](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
