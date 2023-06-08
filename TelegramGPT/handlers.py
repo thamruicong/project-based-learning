@@ -1,54 +1,63 @@
 from telegram import Update
 from telegram.ext import CommandHandler, MessageHandler, filters, ContextTypes, ConversationHandler
-import logging
+import utils
 
-log = logging.getLogger(__name__)
-
-async def _start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text='Hello World!')
-
-async def _echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
+async def _help(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=utils.HELP_TEXT)
 
 async def _invalid_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text='Invalid command!')
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=utils.INVALID_COMMAND_TEXT)
 
 async def _invalid_input(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text='Invalid input!')
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=utils.INVALID_INPUT_TEXT)
 
-GOOGLE = 0
+async def _cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=utils.CANCELLED_TEXT)
+
+    return ConversationHandler.END
+
 async def _start_google(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = 'Welcome to Google 2.0!\nThis is just a simple ChatGPT interface.\n\nType /cancel to cancel.'
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=text)
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=utils.START_GOOGLE_TEXT)
 
-    return GOOGLE
+    return utils.GOOGLE
+
+async def _start_chat(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=utils.START_CHAT_TEXT)
+
+    return utils.CHAT
+
+async def _start_game(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=utils.START_GAME_TEXT)
+
+    return utils.GAME
 
 async def _google(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = 'Google'
     await context.bot.send_message(chat_id=update.effective_chat.id, text=text)
 
-    return GOOGLE
-
-async def _cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    log.info('User %s stopped Google 2.0', update.effective_user.username)
-    text = 'Google 2.0 Shutting down...'
+async def _chat(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    text = 'Chat'
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=text)
+    
+async def _game(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    text = 'Game'
     await context.bot.send_message(chat_id=update.effective_chat.id, text=text)
 
-    return ConversationHandler.END
-
 def getHandlers():
-    start_handler = CommandHandler('start', _start)
-    echo_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, _echo)
-
-    # Does not work correctly, need to disable all other handlers while in google_handler mode
-    google_handler = ConversationHandler(
-        entry_points=[CommandHandler('google', _start_google)],
+    utils.init_states()
+    entry_points = [CommandHandler('google', _start_google), CommandHandler('chat', _start_chat), CommandHandler('game', _start_game)]
+    main_handler = ConversationHandler(
+        entry_points=entry_points,
         states={
-            GOOGLE: [MessageHandler(filters.TEXT, _google)]
+            utils.GOOGLE: [MessageHandler(filters.TEXT & ~filters.COMMAND, _google)],
+            utils.CHAT: [MessageHandler(filters.TEXT & ~filters.COMMAND, _chat)],
+            utils.GAME: [MessageHandler(filters.TEXT & ~filters.COMMAND, _game)],
         },
-        fallbacks=[CommandHandler('cancel', _cancel), MessageHandler(filters.ALL, _invalid_input)]
+        fallbacks=[CommandHandler('cancel', _cancel)] + entry_points
     )
 
+    help_command_handler = CommandHandler('help', _help)
     invalid_command_handler = MessageHandler(filters.COMMAND, _invalid_command)
+    invalid_input_handler = MessageHandler(filters.ALL, _invalid_input)
 
-    return [start_handler, echo_handler, invalid_command_handler]
+    return [main_handler, help_command_handler, invalid_command_handler, invalid_input_handler]
