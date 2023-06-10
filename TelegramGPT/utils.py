@@ -1,4 +1,7 @@
-from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 HELP_TEXT = 'Help'
 INVALID_COMMAND_TEXT = 'Invalid command!'
@@ -14,10 +17,8 @@ def init_states():
     for val, state in enumerate(states):
         globals()[state] = val
 
-def getAPIKey():
-    path = Path(__file__).parent / 'API_KEY'
+def getTelegramToken():
+    return os.getenv('TELEGRAM_TOKEN')
 
-    with path.open() as f:
-        k = f.read()
-    
-    return k
+def getOpenAIAPIKey():
+    return os.getenv('OPENAI_API_KEY')

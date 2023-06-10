@@ -8,6 +8,7 @@ This is a project that combines both the Telegram Chatbot API as well as OpenAI 
 
 Dependencies:
 - python-telegram-bot 20.3
+- openai 0.27.8
 
 References:
 - ~~[Telegram Bot Features](https://core.telegram.org/bots/features)~~

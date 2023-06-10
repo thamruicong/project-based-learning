@@ -2,7 +2,7 @@ import logging
 from telegram.ext import ApplicationBuilder
 
 from handlers import getHandlers
-from utils import getAPIKey
+from utils import getTelegramToken
 
 logging.basicConfig(
     format='%(asctime)s : %(name)s : %(levelname)s : %(message)s',
@@ -10,7 +10,7 @@ logging.basicConfig(
 )
 
 if __name__ == '__main__':
-    application = ApplicationBuilder().token(getAPIKey()).build()
+    application = ApplicationBuilder().token(getTelegramToken()).build()
     application.add_handlers(getHandlers())
 
     application.run_polling()
