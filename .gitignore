@@ -1,3 +1,3 @@
 __pycache__/
 
-/TelegramGPT/API_KEY
+.env
