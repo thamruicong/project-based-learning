@@ -51,11 +51,15 @@ async def _start_chat(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 @decorator_help
 async def _chat_help(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    pass
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=utils.CHAT_HELP_TEXT)
 
 async def _chat_girl_1(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = 'Chat girl 1'
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=text)
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=utils.START_CHAT_GIRL_1_TEXT)
+
+    # TODO: Need to somehow initilize the chatbot and use it for subsequent _chat methods
+    # Also, need a way for chatbot to remember chat history
+        # One solution is to keep track of the entire history here and send it together with the prompt
+            # But this solution consumes alot of tokens
 
     return utils.CHAT_GIRL_1
 
@@ -64,6 +68,9 @@ async def _chat_custom(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=text)
 
     return utils.CHAT_CUSTOM
+
+async def _chat(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=update.effective_message.text)
 
 ############################ GAME ############################
 async def _start_game(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -85,8 +92,8 @@ def getHandlers():
     chat_handler = ConversationHandler(
         entry_points=[CommandHandler('girl1', _chat_girl_1), CommandHandler('custom', _chat_custom)],
         states={
-            utils.CHAT_GIRL_1: [],
-            utils.CHAT_CUSTOM: [],
+            utils.CHAT_GIRL_1: [MessageHandler(filters.TEXT & ~filters.COMMAND, _chat)],
+            utils.CHAT_CUSTOM: [MessageHandler(filters.TEXT & ~filters.COMMAND, _chat)],
         },
         fallbacks=[CommandHandler('cancel', _cancel)],
         map_to_parent={
