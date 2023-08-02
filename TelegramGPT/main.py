@@ -1,7 +1,7 @@
 import logging
 from telegram.ext import ApplicationBuilder
 
-from handlers import getHandlers
+from handlers.main_handler import getHandlers
 from utils import getTelegramToken
 
 logging.basicConfig(
