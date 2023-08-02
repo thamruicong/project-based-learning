@@ -5,7 +5,7 @@ import logging
 log = logging.getLogger(__name__)
 
 openai.api_key = getOpenAIAPIKey()
-MAX_TOKENS = 50
+MAX_TOKENS = 100
 
 def query(prompt, model='text-davinci-003'):
     response = openai.Completion.create(
@@ -16,3 +16,13 @@ def query(prompt, model='text-davinci-003'):
     )
     log.info(response)
     return response.choices[0].text.strip()
+
+def chat(messages, model='gpt-3.5-turbo'):
+    response = openai.ChatCompletion.create(
+        model=model,
+        messages=messages,
+        max_tokens=MAX_TOKENS,
+        temperature=0.8,
+    )
+    log.info(response)
+    return response.choices[0].message.content.strip()
