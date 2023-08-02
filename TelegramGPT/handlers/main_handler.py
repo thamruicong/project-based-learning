@@ -1,5 +1,5 @@
 from telegram.ext import CommandHandler, MessageHandler, filters, ConversationHandler
-import utils
+import utils.utils as utils
 import handlers.chat_handler as chath
 import handlers.game_handler as gameh
 import handlers.google_handler as googleh

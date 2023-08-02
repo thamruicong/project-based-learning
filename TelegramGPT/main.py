@@ -2,7 +2,7 @@ import logging
 from telegram.ext import ApplicationBuilder
 
 from handlers.main_handler import getHandlers
-from utils import getTelegramToken
+from utils.utils import getTelegramToken
 
 logging.basicConfig(
     format='%(asctime)s : %(name)s : %(levelname)s : %(message)s',

@@ -1,5 +1,5 @@
 import openai
-from utils import getOpenAIAPIKey
+from utils.utils import getOpenAIAPIKey
 import logging
 
 log = logging.getLogger(__name__)

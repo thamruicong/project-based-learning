@@ -1,6 +1,6 @@
 from telegram import Update
 from telegram.ext import ContextTypes
-import utils
+import utils.utils as utils
 from handlers.util_handler import decorator_help
 
 async def _start_game(update: Update, context: ContextTypes.DEFAULT_TYPE):
