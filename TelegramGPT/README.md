@@ -6,6 +6,12 @@ Date Completed: 03/08/2023
 
 This is a project that combines both the Telegram Chatbot API as well as OpenAI API. ~~These are the two-part guide for the Telegram Bot - [Create a Telegram Bot](https://khashtamov.com/en/how-to-create-a-telegram-bot-using-python/), [Deploy a Telegram Bot](https://khashtamov.com/en/how-to-deploy-telegram-bot-django/).~~
 
+NOTE: A `.env` file is required with the contents:
+```
+TELEGRAM_TOKEN=...
+OPENAI_API_KEY=...
+```
+
 Dependencies:
 - python-telegram-bot 20.3
 - openai 0.27.8
