@@ -1,11 +1,15 @@
 from telegram import Update
-from telegram.ext import ContextTypes
+from telegram.ext import ContextTypes, ConversationHandler
 import utils.utils as utils
 from handlers.util_handler import decorator_help
 from utils.chatbot import ChatBot
+import handlers.util_handler as utilh
 
 async def _start_chat(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=utils.START_CHAT_TEXT)
+
+    if (ChatBot.has_chatbot()):
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=utils.START_CHAT_LOAD_TEXT)
 
     return utils.CHAT
 
@@ -34,10 +38,24 @@ async def _chat(update: Update, context: ContextTypes.DEFAULT_TYPE):
     reply = ChatBot.generate_response(update.effective_message.text)
     await context.bot.send_message(chat_id=update.effective_chat.id, text=reply)
 
-# Use this to save the chatbot history
-# TODO
 async def _chat_cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = 'Confirm cancel chat\nNote that this will delete all chat history\n\nType /cancel to confirm or /save to save the chatbot history and cancel'
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=text)
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=utils.CHAT_CANCEL_TEXT)
 
-    # return ConversationHandler.END
+    return utils.CHAT_CANCEL
+
+# Use this to save the chatbot history, if any
+async def _chat_save(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=utils.CHAT_SAVE_TEXT)
+
+    ChatBot.save_chatbot()
+    return await utilh._cancel(update, context)
+
+# Use this to load the chatbot history, if any
+async def _chat_load(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if (ChatBot.has_chatbot()):
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=utils.CHAT_LOAD_TEXT)
+
+        ChatBot.load_chatbot()
+        return utils.CHAT_MODE
+    else:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=utils.CHAT_LOAD_ERROR_TEXT)

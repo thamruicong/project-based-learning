@@ -6,12 +6,13 @@
     # 2. Build the chatbot with the given prompt
     # 3. Generate a response from the chatbot
     # 4. Chatbot remembers chat history
-    # 5. Chatbot can be saved and loaded (to save on tokens) TODO
+    # 5. Chatbot can be saved and loaded (to save on tokens)
 
-import logging
 from utils.generate import chat
+import json
+import os
 
-log = logging.getLogger(__name__)
+save_file_name = 'chatbot.json'
 
 class ChatBot():
     chathistory = None
@@ -51,8 +52,30 @@ class ChatBot():
     
     @classmethod
     def save_chatbot(cls):
-        pass
+        if ChatBot.chathistory is None:
+            raise Exception('Chatbot has not been built yet')
+
+        try:
+            with open(save_file_name, 'w') as f:
+                f.write(json.dumps(ChatBot.chathistory, indent=4))
+        except Exception as e:
+            raise Exception(e)
+
+        return ChatBot
 
     @classmethod
     def load_chatbot(cls):
-        pass
+        if (not ChatBot.has_chatbot()):
+            raise Exception('Chatbot does not exist')
+        
+        try:
+            with open(save_file_name, 'r') as f:
+                ChatBot.chathistory = json.loads(f.read())
+        except Exception as e:
+            raise Exception(e)
+
+        return ChatBot
+
+    @classmethod
+    def has_chatbot(cls):
+        return os.path.isfile(save_file_name)

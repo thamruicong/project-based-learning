@@ -17,12 +17,17 @@ START_CHAT_GIRL_1_TEXT = 'You have selected preset Chat Girl 1. Happy chatting!\
 CHAT_GIRL_1_PROMPT = 'Act as if you are a friendly teenage girl.'
 START_CHAT_CUSTOM_TEXT = 'You have selected custom chatbot. Type your prompt below!\n\nType /cancel to cancel.'
 CHAT_CUSTOM_CONFIG_TEXT = 'Custom chatbot prompt initialized. Happy chatting!\n\nType /cancel to cancel.'
+CHAT_CANCEL_TEXT = 'Confirm cancel chat?\nNote that this will delete all chat history.\n\nType /cancel to cancel or /save to save the chatbot history and cancel'
+CHAT_SAVE_TEXT = 'Chatbot history saved!'
+CHAT_LOAD_TEXT = 'Chatbot history loaded!'
+START_CHAT_LOAD_TEXT = 'Previous chatbot history available.\n\nType /load to load.'
+CHAT_LOAD_ERROR_TEXT = 'No previous chatbot history available.'
 
 START_GAME_TEXT = 'Welcome game'
 
 def init_states():
     states = ['GOOGLE', 'CHAT', 'GAME']
-    chat_states = ['CHAT_MODE', 'CHAT_CUSTOM_CONFIG']
+    chat_states = ['CHAT_MODE', 'CHAT_CUSTOM_CONFIG', 'CHAT_CANCEL']
     
     for val, state in enumerate(states):
         globals()[state] = val

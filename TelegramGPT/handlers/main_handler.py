@@ -9,10 +9,11 @@ def getHandlers():
     utils.init_states()
 
     chat_handler = ConversationHandler(
-        entry_points=[CommandHandler('girl1', chath._chat_girl_1), CommandHandler('custom', chath._chat_custom)],
+        entry_points=[CommandHandler('girl1', chath._chat_girl_1), CommandHandler('custom', chath._chat_custom), CommandHandler('load', chath._chat_load)],
         states={
             utils.CHAT_CUSTOM_CONFIG: [MessageHandler(filters.TEXT & ~filters.COMMAND, chath._chat_custom_config)],
-            utils.CHAT_MODE: [MessageHandler(filters.TEXT & ~filters.COMMAND, chath._chat)],
+            utils.CHAT_MODE: [MessageHandler(filters.TEXT & ~filters.COMMAND, chath._chat), CommandHandler('cancel', chath._chat_cancel)],
+            utils.CHAT_CANCEL: [CommandHandler('save', chath._chat_save)]
         },
         fallbacks=[CommandHandler('cancel', utilh._cancel)],
         map_to_parent={
