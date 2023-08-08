@@ -5,12 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RPG_Game_UI"
         mc:Ignorable="d"
-        Title="RPG Game" Height="600" Width="800">
+        Title="RPG Game" Height="700" Width="800" ResizeMode="CanMinimize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="200" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -20,37 +19,82 @@
         
         <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan='2' Background="AliceBlue">Menu</Label>
 
-        <Grid Grid.Row="1" Grid.Column="0" Background="Aquamarine">
+        <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Background="Aquamarine">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Content="Name" />
-            <Label Grid.Row="0" Grid.Column="1" Content="{Binding CurrentPlayer.Name}" />
-            <Label Grid.Row="1" Grid.Column="0" Content="Class" />
-            <Label Grid.Row="1" Grid.Column="1" Content="{Binding CurrentPlayer.CharacterClass}" />
-            <Label Grid.Row="2" Grid.Column="0" Content="HP" />
-            <Label Grid.Row="2" Grid.Column="1" Content="{Binding CurrentPlayer.HitPoints}" />
-            <Label Grid.Row="3" Grid.Column="0" Content="Level" />
-            <Label Grid.Row="3" Grid.Column="1" Content="{Binding CurrentPlayer.Level}" />
-            <Label Grid.Row="5" Grid.Column="0" Content="XP" />
-            <Label Grid.Row="5" Grid.Column="1" Content="{Binding CurrentPlayer.ExperiencePoints}" />
-            <Label Grid.Row="4" Grid.Column="0" Content="Gold" />
-            <Label Grid.Row="4" Grid.Column="1" Content="{Binding CurrentPlayer.Gold}" />
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="Name" />
+                <Label Grid.Row="0" Grid.Column="1" Content="{Binding CurrentPlayer.Name}" />
+                <Label Grid.Row="1" Grid.Column="0" Content="Class" />
+                <Label Grid.Row="1" Grid.Column="1" Content="{Binding CurrentPlayer.CharacterClass}" />
+                <Label Grid.Row="2" Grid.Column="0" Content="HP" />
+                <Label Grid.Row="2" Grid.Column="1" Content="{Binding CurrentPlayer.HitPoints}" />
+                <Label Grid.Row="3" Grid.Column="0" Content="Level" />
+                <Label Grid.Row="3" Grid.Column="1" Content="{Binding CurrentPlayer.Level}" />
+                <Label Grid.Row="4" Grid.Column="0" Content="XP" />
+                <Label Grid.Row="4" Grid.Column="1" Content="{Binding CurrentPlayer.ExperiencePoints}" />
+                <Label Grid.Row="5" Grid.Column="0" Content="Gold" />
+                <Label Grid.Row="5" Grid.Column="1" Content="{Binding CurrentPlayer.Gold}" />
+                <Button Grid.Row="6" Grid.Column="1" Content="Add XP" Click="ButtonBase_OnClick"></Button>
+            </Grid>
+
+            <Label Grid.Row="1" Background="BurlyWood">Inventory</Label>
         </Grid>
+        
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="200" />
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="0" Background="Beige">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-        <Label Grid.Row="1" Grid.Column="1" Background="Beige">Game Logs</Label>
-        <Label Grid.Row="2" Grid.Column="0" Background="BurlyWood">Inventory</Label>
-        <Label Grid.Row="2" Grid.Column="1" Background="Lavender">Combat Controls</Label>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">Game Logs</Label>
+
+                <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="{Binding CurrentLocation.Name}" />
+                        
+                        <Image Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="150" Width="150" Source="{Binding CurrentLocation.ImageName}" />
+
+                        <TextBlock Grid.Row="2" HorizontalAlignment="Center" Text="{Binding CurrentLocation.Description}" />
+                    </Grid>
+                </Border>
+            </Grid>
+            <Label Grid.Row="1" Background="Lavender">Combat Controls</Label>
+        </Grid>
     </Grid>
 </Window>
