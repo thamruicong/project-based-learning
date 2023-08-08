@@ -5,8 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RPG_Game"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="RPG Game" Height="600" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="200" />
+        </Grid.RowDefinitions>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan='2' Background="AliceBlue">Menu</Label>
+        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan='2' Background="Aquamarine">Player</Label>
+        <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan='2' Background="Beige">Game Logs</Label>
+        <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan='2' Background="BurlyWood">Inventory</Label>
+        <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan='2' Background="Lavender">Combat Controls</Label>
     </Grid>
 </Window>
