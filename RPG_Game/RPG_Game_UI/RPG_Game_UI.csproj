@@ -7,4 +7,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include='..\RPG_Game_Engine\RPG_Game_Engine.csproj' />
+  </ItemGroup>
+
 </Project>
