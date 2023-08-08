@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace RPG_Game
+namespace RPG_Game_UI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
