@@ -15,7 +15,7 @@ namespace Engine.Models
         {
             this.Name = name;
             this.Description = description;
-            this.ImageName = imageName;
+            this.ImageName = string.Format("pack://application:,,,/RPG_Game_Engine;component/Images/Locations/{0}.png", imageName);
         }
     }
 }

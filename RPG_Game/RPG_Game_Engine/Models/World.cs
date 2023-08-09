@@ -6,11 +6,11 @@ using System.Collections.Generic;
 
 namespace Engine.Models
 {
-    public class World
+    internal class World
     {
-        private List<Location> _locations = new List<Location>();
-        private Dictionary<string, Location> _special_locations = new Dictionary<string, Location>();
-        public World() {}
+        private readonly List<Location> _locations = new();
+        private readonly Dictionary<string, Location> _special_locations = new();
+        internal World() {}
 
         internal void AddLocation(string name, string description, string imageName)
         {
@@ -26,7 +26,7 @@ namespace Engine.Models
         {
             while (true)
             {
-                Random random = new Random();
+                Random random = new();
                 int index = random.Next(0, _locations.Count);
                 if (0 <= index && index < _locations.Count && _locations[index] != prev)
                 {

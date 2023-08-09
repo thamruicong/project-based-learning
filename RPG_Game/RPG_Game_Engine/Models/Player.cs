@@ -7,22 +7,13 @@ namespace Engine.Models
 {
     public class Player : BaseNotification
     {
-        private string _name;
         private string _characterClass;
         private int _hitPoints;
         private int _experiencePoints;
         private int _level;
         private int _gold;
 
-        public string Name 
-        {
-            get { return _name; }
-            set 
-            {
-                _name = value;
-                OnPropertyChanged(nameof(Name));
-            }
-        }
+        public string Name { get; private set; }
         public string CharacterClass 
         {
             get { return _characterClass; }
@@ -69,7 +60,7 @@ namespace Engine.Models
             }
         }
 
-        public Inventory Inventory { get; set; }
+        public Inventory Inventory { get; private set; }
     
         public Player(string name, string characterClass, int hitPoints, int experiencePoints, int level, int gold)
         {

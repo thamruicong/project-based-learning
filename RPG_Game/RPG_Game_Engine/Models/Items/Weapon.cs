@@ -20,17 +20,5 @@ namespace Engine.Models.Items
         {
             return new Weapon(this.ItemID, this.Name, this.MinimumDamage, this.MaximumDamage, this.Price);
         }
-
-        public override bool Equals(object? obj)
-        {
-            if (obj is Weapon weapon)
-            {
-                return base.Equals(weapon) && this.MinimumDamage == weapon.MinimumDamage && this.MaximumDamage == weapon.MaximumDamage;
-            }
-            else
-            {
-                return false;
-            }
-        }
     }
 }

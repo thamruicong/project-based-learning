@@ -9,7 +9,7 @@ namespace Engine.Models
 {
     public class Inventory
     {
-        private ObservableCollection<GameItemGroup> _items;
+        private readonly ObservableCollection<GameItemGroup> _items;
 
         public ObservableCollection<GameItemGroup> Items { get { return _items; } }
 
@@ -18,35 +18,37 @@ namespace Engine.Models
             _items = new ObservableCollection<GameItemGroup>();
         }
 
-        public void AddItem(GameItem itemToAdd)
+        public void AddItem(GameItemGroup itemGroupToAdd)
         {
-            GameItemGroup? itemGroup = _items.FirstOrDefault(item => item.Item.Equals(itemToAdd));
+            GameItemGroup? itemGroup = _items.FirstOrDefault(item => item.Item.IsSameItem(itemGroupToAdd.Item));
 
             if (itemGroup == null)
             {
-                _items.Add(new GameItemGroup(itemToAdd, 1));
+                _items.Add(itemGroupToAdd);
             }
             else
             {
-                itemGroup.Quantity++;
+                itemGroup.Quantity += itemGroupToAdd.Quantity;
             }
         }
 
-        public void RemoveItem(GameItem itemToRemove)
+        public void RemoveItem(GameItemGroup itemGroupToRemove)
         {
-            GameItemGroup? itemGroup = _items.FirstOrDefault(item => item.Item.Equals(itemToRemove));
-
-            if (itemGroup == null)
+            GameItemGroup itemGroup = _items.FirstOrDefault(item => item.Item.IsSameItem(itemGroupToRemove.Item)) 
+                    ?? throw new ArgumentException(string.Format("Item {0} not found in inventory", itemGroupToRemove.Item.Name));
+            
+            if (itemGroup.Quantity < itemGroupToRemove.Quantity)
             {
-                throw new ArgumentException(string.Format("Item {0} not found in inventory", itemToRemove));
+                throw new ArgumentException(string.Format("Item {0} does not have enough quantity", itemGroup.Item.Name));
             }
-            else if (itemGroup.Quantity == 1)
+
+            if (itemGroup.Quantity == itemGroupToRemove.Quantity)
             {
                 _items.Remove(itemGroup);
             }
-            else
+            else if (itemGroup.Quantity > itemGroupToRemove.Quantity)
             {
-                itemGroup.Quantity--;
+                itemGroup.Quantity -= itemGroupToRemove.Quantity;
             }
         }
     }

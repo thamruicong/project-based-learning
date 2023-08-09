@@ -21,7 +21,7 @@ namespace RPG_Game_UI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private GameSession _gameSession;
+        private readonly GameSession _gameSession;
 
         public MainWindow()
         {

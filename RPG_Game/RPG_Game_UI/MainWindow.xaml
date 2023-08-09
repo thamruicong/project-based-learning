@@ -57,10 +57,14 @@
             <Grid Grid.Row="1" Background="BurlyWood">
                 <TabControl>
                     <TabItem Header="Weapons">
-                        <DataGrid ItemsSource="{Binding CurrentPlayer.Inventory.Items}" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserResizeColumns="False">
+                        <DataGrid ItemsSource="{Binding CurrentPlayer.Inventory.Items}" 
+                                AutoGenerateColumns="False" 
+                                HeadersVisibility="Column" 
+                                CanUserResizeColumns="False" 
+                                IsReadOnly="True">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Name" Binding="{Binding Item.Name}" Width="*" />
-                                <DataGridTextColumn Header="Price" Binding="{Binding Item.Price, TargetNullValue='-'}" Width="Auto" />
+                                <!-- <DataGridTextColumn Header="Price" Binding="{Binding Item.Price, TargetNullValue='-'}" Width="Auto" /> -->
                                 <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="Auto" />
                             </DataGrid.Columns>
                         </DataGrid>
