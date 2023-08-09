@@ -30,9 +30,14 @@ namespace RPG_Game_UI
             DataContext = _gameSession;
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void OnClick_Move(object sender, RoutedEventArgs e)
         {
-            _gameSession.CurrentPlayer.ExperiencePoints += 10;
+            _gameSession.OnClick_Move();
+        }
+
+        private void OnClick_Shop(object sender, RoutedEventArgs e)
+        {
+            _gameSession.OnClick_Shop();
         }
     }
 }
