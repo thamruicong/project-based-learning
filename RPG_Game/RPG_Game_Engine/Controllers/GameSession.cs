@@ -22,16 +22,16 @@ namespace Engine.Controllers
         }
         public World CurrentWorld { get; set; }
 
-        public GameSession() 
+        public GameSession()
         {
             this.CurrentPlayer = new Player("Scott", "Fighter", 10, 0, 1, 100000);
-            this.CurrentWorld = new WorldFactory().CreateWorld();
-            this.CurrentLocation = this.CurrentWorld.GetNewLocation(this.CurrentLocation);
+            this.CurrentWorld = WorldFactory.CreateWorld();
+            this.CurrentLocation = this.CurrentWorld.GetLocation(this.CurrentLocation);
         }
 
         public void OnClick_Move()
         {
-            this.CurrentLocation = this.CurrentWorld.GetNewLocation(this.CurrentLocation);
+            this.CurrentLocation = this.CurrentWorld.GetLocation(this.CurrentLocation);
         }
 
         public void OnClick_Shop()

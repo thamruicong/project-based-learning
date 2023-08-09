@@ -54,7 +54,25 @@
                 <Label Grid.Row="5" Grid.Column="1" Content="{Binding CurrentPlayer.Gold}" />
             </Grid>
 
-            <Label Grid.Row="1" Background="BurlyWood">Inventory</Label>
+            <Grid Grid.Row="1" Background="BurlyWood">
+                <TabControl>
+                    <TabItem Header="Weapons">
+                        <DataGrid ItemsSource="{Binding CurrentPlayer.Inventory.Items}" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserResizeColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Name" Binding="{Binding Item.Name}" Width="*" />
+                                <DataGridTextColumn Header="Price" Binding="{Binding Item.Price, TargetNullValue='-'}" Width="Auto" />
+                                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="Auto" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Header="Items">
+                        
+                    </TabItem>
+                    <TabItem Header="Crafting">
+                        
+                    </TabItem>
+                </TabControl>
+            </Grid>
         </Grid>
         
         <Grid Grid.Row="1" Grid.Column="1">

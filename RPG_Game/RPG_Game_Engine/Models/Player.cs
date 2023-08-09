@@ -68,6 +68,8 @@ namespace Engine.Models
                 OnPropertyChanged(nameof(Gold));
             }
         }
+
+        public Inventory Inventory { get; set; }
     
         public Player(string name, string characterClass, int hitPoints, int experiencePoints, int level, int gold)
         {
@@ -77,6 +79,7 @@ namespace Engine.Models
             this.ExperiencePoints = experiencePoints;
             this.Level = level;
             this.Gold = gold;
+            this.Inventory = new Inventory();
         }
     }
 }
