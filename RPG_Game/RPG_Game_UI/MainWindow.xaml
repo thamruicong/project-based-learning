@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:RPG_Game_UI"
         mc:Ignorable="d"
         Title="RPG Game" Height="700" Width="800" ResizeMode="CanMinimize">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -17,6 +20,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         
+        <!-- Menu -->
         <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan='2' Background="AliceBlue">Menu</Label>
 
         <Grid Grid.Row="1" Grid.Column="0">
@@ -25,6 +29,7 @@
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
 
+            <!-- Player Info -->
             <Grid Grid.Row="0" Background="Aquamarine">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -54,6 +59,7 @@
                 <Label Grid.Row="5" Grid.Column="1" Content="{Binding CurrentPlayer.Gold}" />
             </Grid>
 
+            <!-- Inventory -->
             <Grid Grid.Row="1" Background="BurlyWood">
                 <TabControl>
                     <TabItem Header="Weapons">
@@ -91,8 +97,10 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
 
+            <!-- Game Logs -->
             <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Background="Beige">Game Logs</Label>
 
+            <!-- Location -->
             <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -108,9 +116,34 @@
                     <TextBlock Grid.Row="2" HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding CurrentLocation.Description}" TextWrapping="Wrap" />
                 </Grid>
             </Border>
-            <Label Grid.Row="1" Grid.Column="1" Background="LightBlue">Enemy</Label>
+
+            <!-- Monster -->
+            <Border Grid.Row="1" Grid.Column="1" BorderBrush="Gainsboro" BorderThickness="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="{Binding CurrentMonster.Name}" />
+                    
+                    <Image Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="150" Width="150" Source="{Binding CurrentMonster.ImageName}" />
+
+                    <StackPanel Grid.Row="2" HorizontalAlignment="Center" Orientation="Horizontal" Visibility="{Binding IsInBattle, Converter={StaticResource BooleanToVisibility}}" >
+                        <TextBlock Text="Hit Points: " />
+                        <TextBlock Text="{Binding CurrentMonster.CurrentHitPoints}" />
+                        <TextBlock Text=" / " />
+                        <TextBlock Text="{Binding CurrentMonster.MaximumHitPoints}" />
+                    </StackPanel>
+                </Grid>
+
+            </Border>
+
+            <!-- Combat Options -->
             <Label Grid.Row="2" Grid.Column="0" Background="Lavender">Combat Controls</Label>
             
+            <!-- Movement Options --> 
             <Grid Grid.Row="2" Grid.Column="1" Background="LightGreen">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />

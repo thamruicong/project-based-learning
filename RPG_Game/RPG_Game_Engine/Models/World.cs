@@ -27,24 +27,22 @@ namespace Engine.Models
             while (true)
             {
                 Random random = new();
-                int index = random.Next(0, _locations.Count);
+                int index = random.Next(_locations.Count);
                 if (0 <= index && index < _locations.Count && _locations[index] != prev)
                 {
-                    return _locations[index];
+                    return _locations.ElementAt(index);
                 }
             }
         }
 
         internal Location GetLocation(string key)
         {
-            try
+            if (!_special_locations.ContainsKey(key))
             {
-                return _special_locations[key];
+                throw new KeyNotFoundException(string.Format("Key not found in {0} dictionary", nameof(_special_locations)));
             }
-            catch (KeyNotFoundException e)
-            {
-                throw new KeyNotFoundException(string.Format("Key not found in {0} dictionary", nameof(_special_locations)), e);
-            }
+            
+            return _special_locations[key];
         }
     }
 }

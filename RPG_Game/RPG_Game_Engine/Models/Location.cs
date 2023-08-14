@@ -7,9 +7,9 @@ namespace Engine.Models
 {
     public class Location
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string ImageName { get; set; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public string ImageName { get; private set; }
     
         public Location(string name, string description, string imageName)
         {
