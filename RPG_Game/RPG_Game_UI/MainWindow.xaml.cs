@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Engine.Controllers;
+using Engine.EventArgs;
 
 namespace RPG_Game_UI
 {
@@ -27,6 +28,7 @@ namespace RPG_Game_UI
         {
             InitializeComponent();
             _gameSession = new GameSession();
+            _gameSession.OnMessageRaised += OnGameMessageRaised;
             DataContext = _gameSession;
         }
 
@@ -38,6 +40,12 @@ namespace RPG_Game_UI
         private void OnClick_Shop(object sender, RoutedEventArgs e)
         {
             _gameSession.OnClick_Shop();
+        }
+
+        private void OnGameMessageRaised(object sender, GameMessageEventArgs e)
+        {
+            GameMessages.Document.Blocks.Add(new Paragraph(new Run(e.Message)));
+            GameMessages.ScrollToEnd();
         }
     }
 }

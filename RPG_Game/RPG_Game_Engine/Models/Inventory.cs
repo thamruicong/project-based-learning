@@ -13,6 +13,8 @@ namespace Engine.Models
 
         public ObservableCollection<GameItemGroup> Items { get { return _items; } }
 
+        public ObservableCollection<GameItemGroup> Weapons => new(_items.Where(item => item.Item is Weapon));
+
         public Inventory()
         {
             _items = new ObservableCollection<GameItemGroup>();

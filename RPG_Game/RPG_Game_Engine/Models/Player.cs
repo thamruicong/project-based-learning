@@ -8,7 +8,8 @@ namespace Engine.Models
     public class Player : BaseNotification
     {
         private string _characterClass;
-        private int _hitPoints;
+        private int _currentHitPoints;
+        private int _maximumHitPoints;
         private int _experiencePoints;
         private int _level;
         private int _gold;
@@ -23,13 +24,22 @@ namespace Engine.Models
                 OnPropertyChanged(nameof(CharacterClass));
             }
         }
-        public int HitPoints 
+        public int CurrentHitPoints 
         {
-            get { return _hitPoints; }
+            get { return _currentHitPoints; }
             set 
             {
-                _hitPoints = value;
-                OnPropertyChanged(nameof(HitPoints));
+                _currentHitPoints = value;
+                OnPropertyChanged(nameof(CurrentHitPoints));
+            }
+        }
+        public int MaximumHitPoints 
+        {
+            get { return _maximumHitPoints; }
+            set 
+            {
+                _maximumHitPoints = value;
+                OnPropertyChanged(nameof(MaximumHitPoints));
             }
         }
         public int ExperiencePoints 
@@ -66,7 +76,8 @@ namespace Engine.Models
         {
             this.Name = name;
             this.CharacterClass = characterClass;
-            this.HitPoints = hitPoints;
+            this.CurrentHitPoints = hitPoints;
+            this.MaximumHitPoints = hitPoints;
             this.ExperiencePoints = experiencePoints;
             this.Level = level;
             this.Gold = gold;
