@@ -11,11 +11,7 @@
         Title="RPG Game" Height="700" Width="800" ResizeMode="CanMinimize">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
-        
-        <Converters:ValueConverterGroup x:Key="BooleanToVisibilityInverted">
-            <Converters:BooleanInverter />
-            <BooleanToVisibilityConverter />
-        </Converters:ValueConverterGroup>
+        <Converters:InvBooleanToVisibilityConverter x:Key="InvBooleanToVisibility" />
     </Window.Resources>
 
     <Grid>
@@ -163,7 +159,21 @@
             </Border>
 
             <!-- Combat Options -->
-            <Label Grid.Row="2" Grid.Column="0" Background="Lavender">Combat Controls</Label>
+            <Grid Grid.Row="2" Grid.Column="0" Background="Lavender" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding IsInBattle, Converter={StaticResource BooleanToVisibility}}">
+                <Grid.RowDefinitions>
+                    <!-- <RowDefinition Height="Auto" /> -->
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="50" />
+                </Grid.ColumnDefinitions>
+
+                <ComboBox Grid.Row="0" Grid.Column="0" ItemsSource="{Binding CurrentPlayer.Inventory.Weapons}" SelectedItem="{Binding CurrentPlayer.Weapon}" DisplayMemberPath="Item.Name" />
+                <Button Grid.Row="0" Grid.Column="2" Content="Attack" HorizontalAlignment="Center" VerticalAlignment="Center" Click="OnClick_Attack" />
+            </Grid>
             
             <!-- Movement Options --> 
             <Grid Grid.Row="2" Grid.Column="1" Background="LightGreen">
@@ -172,8 +182,8 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Button Grid.Row="0" Content="Move" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="65" Click="OnClick_Move" Visibility="{Binding IsInBattle, Converter={StaticResource BooleanToVisibilityInverted}}" />
-                <Button Grid.Row="1" Content="Shop" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="65" Click="OnClick_Shop" Visibility="{Binding IsInBattle, Converter={StaticResource BooleanToVisibilityInverted}}" />
+                <Button Grid.Row="0" Content="Move" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="65" Click="OnClick_Move" Visibility="{Binding IsInBattle, Converter={StaticResource InvBooleanToVisibility}}" />
+                <Button Grid.Row="1" Content="Shop" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="65" Click="OnClick_Shop" Visibility="{Binding IsInBattle, Converter={StaticResource InvBooleanToVisibility}}" />
             </Grid>
         </Grid>
     </Grid>

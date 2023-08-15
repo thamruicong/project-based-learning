@@ -15,14 +15,55 @@ namespace Engine.Factories
         {
             _gameItems = new Dictionary<int, GameItem>
             {
-                {1001, new Weapon(1001, "Pointy Stick", 1, 2)},
-                {1002, new Weapon(1002, "Rusty Sword", 2, 3, 5)},
-                {9001, new Craftable(9001, "Snakeskin", "The skin of a snake. Looks durable.", 2)},
-                {9002, new Craftable(9002, "Snake venom", "One drop can kill.", 10)},
-                {9003, new Craftable(9003, "Rat tail", "Looks gross.", 1)},
-                {9004, new Craftable(9004, "Rat meat", "Edible, but not very tasty.", 2)},
-                {9005, new Craftable(9005, "Spider fang", "Sharp and poisonous.", 5)},
-                {9006, new Craftable(9006, "Spider silk", "Strong and flexible.", 3)},
+                {1001, new Weapon(
+                    itemID: 1001, 
+                    name: "Pointy Stick", 
+                    minimumDamage: 1, 
+                    maximumDamage: 2
+                )},
+                {1002, new Weapon(
+                    itemID: 1002, 
+                    name: "Rusty Sword", 
+                    minimumDamage: 2, 
+                    maximumDamage: 3, 
+                    price: 5
+                )},
+                {9001, new Craftable(
+                    itemID: 9001, 
+                    name: "Snakeskin", 
+                    description: "The skin of a snake. Looks durable.",
+                    price: 2
+                )},
+                {9002, new Craftable(
+                    itemID: 9002, 
+                    name: "Snake venom", 
+                    description: "One drop can kill.", 
+                    price: 10
+                )},
+                {9003, new Craftable(
+                    itemID: 9003, 
+                    name: "Rat tail", 
+                    description: "Looks gross.", 
+                    price: 1
+                )},
+                {9004, new Craftable(
+                    itemID: 9004, 
+                    name: "Rat meat", 
+                    description: "Edible, but not very tasty.", 
+                    price: 2
+                )},
+                {9005, new Craftable(
+                    itemID: 9005, 
+                    name: "Spider fang", 
+                    description: "Sharp and poisonous.", 
+                    price: 5
+                )},
+                {9006, new Craftable(
+                    itemID: 9006, 
+                    name: "Spider silk", 
+                    description: "Strong and flexible.", 
+                    price: 3
+                )},
             };
         }
 

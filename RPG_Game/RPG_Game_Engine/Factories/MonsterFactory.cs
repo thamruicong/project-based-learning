@@ -17,18 +17,48 @@ namespace Engine.Factories
         {
             _monsters = new Dictionary<int, Monster>
             {
-                {4001, new Monster(4001, "Snake", "Snake", 8, 1, 2, 10, 10, new(new(){
-                    new DropChance(9001, 100, 1, 3),
-                    new DropChance(9002, 25, 1, 1),
-                }))},
-                {4002, new Monster(4002, "Rat", "Rat", 5, 2, 2, 5, 5, new(new(){
-                    new DropChance(9003, 100, 1, 1),
-                    new DropChance(9004, 75, 1, 1),
-                }))},
-                {4003, new Monster(4003, "Spider", "Spider", 10, 1, 5, 10, 10, new(new(){
-                    new DropChance(9005, 50, 1, 2),
-                    new DropChance(9006, 100, 1, 1),
-                }))},
+                {4001, new Monster(
+                    monsterID: 4001,
+                    name: "Snake", 
+                    imageName: "Snake", 
+                    maximumHitPoints: 8, 
+                    minimumDamage: 1, 
+                    maximumDamage: 2, 
+                    rewardExperiencePoints: 10, 
+                    rewardGold: 10, 
+                    lootTable: new(new() {
+                        new DropChance(9001, 100, 1, 3),
+                        new DropChance(9002, 25, 1, 1),
+                    })
+                )},
+                {4002, new Monster(
+                    monsterID: 4002, 
+                    name: "Rat", 
+                    imageName: "Rat", 
+                    maximumHitPoints: 5, 
+                    minimumDamage: 2,
+                    maximumDamage: 2, 
+                    rewardExperiencePoints: 5, 
+                    rewardGold: 5, 
+                    lootTable: new(new() {
+                        new DropChance(9003, 100, 1, 1),
+                        new DropChance(9004, 75, 1, 1),
+                    })
+                )},
+                {4003, new Monster(
+                    monsterID: 4003, 
+                    name: "Spider", 
+                    imageName: "Spider", 
+                    maximumHitPoints: 10, 
+                    minimumDamage: 1, 
+                    maximumDamage: 5, 
+                    rewardExperiencePoints: 10, 
+                    rewardGold: 10, 
+                    lootTable: new(new() {
+                        new DropChance(9005, 50, 1, 2),
+                        new DropChance(9006, 100, 1, 1),
+                    })
+                )},
             };
         }
         

@@ -2,6 +2,9 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Engine.EventArgs;
+using Engine.Models.Items;
+using Engine.Models.Monsters;
 
 namespace Engine.Models
 {
@@ -71,6 +74,7 @@ namespace Engine.Models
         }
 
         public Inventory Inventory { get; private set; }
+        public GameItemGroup Weapon { get; set; }
     
         public Player(string name, string characterClass, int hitPoints, int experiencePoints, int level, int gold)
         {
@@ -82,6 +86,65 @@ namespace Engine.Models
             this.Level = level;
             this.Gold = gold;
             this.Inventory = new Inventory();
+        }
+
+        public void Attack(Monster monster)
+        {
+            if (this.Weapon == null || !(this.Weapon.Item is Weapon) || this.Weapon.Quantity == 0)
+            {
+                GameMessage.RaiseMessage(this, "You must select a weapon, to attack.");
+                return;
+            }
+
+            Weapon Weapon = (Weapon)this.Weapon.Item;
+
+            int damageToMonster = RandomNumberGenerator.NumberBetween(Weapon.MinimumDamage, Weapon.MaximumDamage);
+
+            // Hit the monster
+            if (damageToMonster == 0)
+            {
+                GameMessage.RaiseMessage(this, $"You missed the {monster.Name}.");
+            }
+            else
+            {
+                monster.CurrentHitPoints -= damageToMonster;
+                GameMessage.RaiseMessage(this, $"You hit the {monster.Name} for {damageToMonster} points.");
+            }
+
+            // Check if the monster is dead
+            if (monster.CurrentHitPoints <= 0)
+            {
+                GameMessage.RaiseMessage(this, "");
+                GameMessage.RaiseMessage(this, $"You defeated the {monster.Name}!");
+
+                this.ExperiencePoints += monster.RewardExperiencePoints;
+                GameMessage.RaiseMessage(this, $"You receive {monster.RewardExperiencePoints} experience points.");
+
+                this.Gold += monster.RewardGold;
+                GameMessage.RaiseMessage(this, $"You receive {monster.RewardGold} gold.");
+
+                foreach (GameItemGroup gameItemGroup in monster.Inventory?.Items ?? Enumerable.Empty<GameItemGroup>())
+                {
+                    this.Inventory.AddItem(gameItemGroup);
+                    GameMessage.RaiseMessage(this, $"You receive {gameItemGroup.Quantity} {gameItemGroup.Item.Name}.");
+                }
+
+                // Raise the OnKilled event to set CurrentMonster to null
+            }
+            else
+            {
+                int damageToPlayer = RandomNumberGenerator.NumberBetween(monster.MinimumDamage, monster.MaximumDamage);
+
+                if (damageToPlayer == 0)
+                {
+                    GameMessage.RaiseMessage(this, $"The {monster.Name} attacks, but misses you.");
+                }
+                else
+                {
+                    this.CurrentHitPoints -= damageToPlayer;
+                    GameMessage.RaiseMessage(this, $"The {monster.Name} hit you for {damageToPlayer} points.");
+                }
+            }
         }
     }
 }

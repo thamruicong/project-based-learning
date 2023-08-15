@@ -28,7 +28,7 @@ namespace RPG_Game_UI
         {
             InitializeComponent();
             _gameSession = new GameSession();
-            _gameSession.OnMessageRaised += OnGameMessageRaised;
+            GameMessage.OnMessageRaised += OnGameMessageRaised;
             DataContext = _gameSession;
         }
 
@@ -40,6 +40,12 @@ namespace RPG_Game_UI
         private void OnClick_Shop(object sender, RoutedEventArgs e)
         {
             _gameSession.OnClick_Shop();
+        }
+
+        // TODO: change to general 'use' button, that either attacks with weapon or uses consumable
+        private void OnClick_Attack(object sender, RoutedEventArgs e)
+        {
+            _gameSession.OnClick_Attack();
         }
 
         private void OnGameMessageRaised(object sender, GameMessageEventArgs e)
