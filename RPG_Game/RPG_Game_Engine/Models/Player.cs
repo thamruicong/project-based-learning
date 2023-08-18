@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Engine.Controllers;
 using Engine.EventArgs;
 using Engine.Models.Items;
 using Engine.Models.Monsters;
@@ -74,7 +75,7 @@ namespace Engine.Models
         }
 
         public Inventory Inventory { get; private set; }
-        public GameItemGroup Weapon { get; set; }
+        public GameItemGroup? ItemInHand { get; set; }
     
         public Player(string name, string characterClass, int hitPoints, int experiencePoints, int level, int gold)
         {
@@ -88,62 +89,34 @@ namespace Engine.Models
             this.Inventory = new Inventory();
         }
 
-        public void Attack(Monster monster)
+        internal GameSession.AttackResult Attack(Monster monster)
         {
-            if (this.Weapon == null || !(this.Weapon.Item is Weapon) || this.Weapon.Quantity == 0)
+            if (this.ItemInHand == null || !(this.ItemInHand.Item is Weapon) || this.ItemInHand.Quantity == 0)
             {
-                GameMessage.RaiseMessage(this, "You must select a weapon, to attack.");
-                return;
+                GameMessage.RaiseMessage(this, "You must select a weapon to attack.");
+                return GameSession.AttackResult.ATTACK_FAILURE;
             }
 
-            Weapon Weapon = (Weapon)this.Weapon.Item;
+            Weapon Weapon = (Weapon)this.ItemInHand.Item;
 
-            int damageToMonster = RandomNumberGenerator.NumberBetween(Weapon.MinimumDamage, Weapon.MaximumDamage);
+            int damageToMonster = RandomNumberGenerator.NumberBetweenInclusive(Weapon.MinimumDamage, Weapon.MaximumDamage);
 
             // Hit the monster
-            if (damageToMonster == 0)
+            monster.TakeDamage(damageToMonster);
+
+            return GameSession.AttackResult.ATTACK_SUCCESS;
+        }
+
+        internal void TakeDamage(Monster monster, int damageToPlayer)
+        {
+            if (damageToPlayer == 0)
             {
-                GameMessage.RaiseMessage(this, $"You missed the {monster.Name}.");
+                GameMessage.RaiseMessage(this, $"The {monster.Name} attacks, but misses you.");
             }
             else
             {
-                monster.CurrentHitPoints -= damageToMonster;
-                GameMessage.RaiseMessage(this, $"You hit the {monster.Name} for {damageToMonster} points.");
-            }
-
-            // Check if the monster is dead
-            if (monster.CurrentHitPoints <= 0)
-            {
-                GameMessage.RaiseMessage(this, "");
-                GameMessage.RaiseMessage(this, $"You defeated the {monster.Name}!");
-
-                this.ExperiencePoints += monster.RewardExperiencePoints;
-                GameMessage.RaiseMessage(this, $"You receive {monster.RewardExperiencePoints} experience points.");
-
-                this.Gold += monster.RewardGold;
-                GameMessage.RaiseMessage(this, $"You receive {monster.RewardGold} gold.");
-
-                foreach (GameItemGroup gameItemGroup in monster.Inventory?.Items ?? Enumerable.Empty<GameItemGroup>())
-                {
-                    this.Inventory.AddItem(gameItemGroup);
-                    GameMessage.RaiseMessage(this, $"You receive {gameItemGroup.Quantity} {gameItemGroup.Item.Name}.");
-                }
-
-                // Raise the OnKilled event to set CurrentMonster to null
-            }
-            else
-            {
-                int damageToPlayer = RandomNumberGenerator.NumberBetween(monster.MinimumDamage, monster.MaximumDamage);
-
-                if (damageToPlayer == 0)
-                {
-                    GameMessage.RaiseMessage(this, $"The {monster.Name} attacks, but misses you.");
-                }
-                else
-                {
-                    this.CurrentHitPoints -= damageToPlayer;
-                    GameMessage.RaiseMessage(this, $"The {monster.Name} hit you for {damageToPlayer} points.");
-                }
+                this.CurrentHitPoints -= damageToPlayer;
+                GameMessage.RaiseMessage(this, $"The {monster.Name} hit you for {damageToPlayer} points.");
             }
         }
     }

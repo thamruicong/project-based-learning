@@ -22,12 +22,11 @@ namespace RPG_Game_UI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly GameSession _gameSession;
+        private readonly GameSession _gameSession = new();
 
         public MainWindow()
         {
             InitializeComponent();
-            _gameSession = new GameSession();
             GameMessage.OnMessageRaised += OnGameMessageRaised;
             DataContext = _gameSession;
         }

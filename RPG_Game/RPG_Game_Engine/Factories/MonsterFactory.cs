@@ -27,8 +27,8 @@ namespace Engine.Factories
                     rewardExperiencePoints: 10, 
                     rewardGold: 10, 
                     lootTable: new(new() {
-                        new DropChance(9001, 100, 1, 3),
-                        new DropChance(9002, 25, 1, 1),
+                        new DropChance(itemID: 9001, dropPercentage: 100, minimumQuantity: 1, maximumQuantity: 3),
+                        new DropChance(itemID: 9002, dropPercentage: 25, minimumQuantity: 1, maximumQuantity: 1),
                     })
                 )},
                 {4002, new Monster(
@@ -41,8 +41,8 @@ namespace Engine.Factories
                     rewardExperiencePoints: 5, 
                     rewardGold: 5, 
                     lootTable: new(new() {
-                        new DropChance(9003, 100, 1, 1),
-                        new DropChance(9004, 75, 1, 1),
+                        new DropChance(itemID: 9003, dropPercentage: 100, minimumQuantity: 1, maximumQuantity: 1),
+                        new DropChance(itemID: 9004, dropPercentage: 75, minimumQuantity: 1, maximumQuantity: 1),
                     })
                 )},
                 {4003, new Monster(
@@ -55,8 +55,8 @@ namespace Engine.Factories
                     rewardExperiencePoints: 10, 
                     rewardGold: 10, 
                     lootTable: new(new() {
-                        new DropChance(9005, 50, 1, 2),
-                        new DropChance(9006, 100, 1, 1),
+                        new DropChance(itemID: 9005, dropPercentage: 50, minimumQuantity: 1, maximumQuantity: 2),
+                        new DropChance(itemID: 9006, dropPercentage: 100, minimumQuantity: 1, maximumQuantity: 1),
                     })
                 )},
             };
@@ -74,8 +74,7 @@ namespace Engine.Factories
 
         internal static Monster GetRandomMonster()
         {
-            Random random = new();
-            int randomMonsterKeyID = random.Next(_monsters.Count);
+            int randomMonsterKeyID = RandomNumberGenerator.NumberBetweenExclusive(_monsters.Count);
 
             return CreateMonster(_monsters.Keys.ElementAt(randomMonsterKeyID));
         }

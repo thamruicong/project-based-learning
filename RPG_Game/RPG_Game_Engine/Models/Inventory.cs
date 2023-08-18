@@ -4,20 +4,28 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using Engine.Models.Items;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using Engine.Factories;
 
 namespace Engine.Models
 {
-    public class Inventory
+    public class Inventory : BaseNotification
     {
         private readonly ObservableCollection<GameItemGroup> _items;
 
         public ObservableCollection<GameItemGroup> Items { get { return _items; } }
 
-        public ObservableCollection<GameItemGroup> Weapons => new(_items.Where(item => item.Item is Weapon));
+        #region Display Properties
+        public List<GameItemGroup> Weapons { get; private set;}
+        public List<GameItemGroup> Craftables { get; private set;}
+
+        #endregion
 
         public Inventory()
         {
             _items = new ObservableCollection<GameItemGroup>();
+            _items.CollectionChanged += UpdateDisplayProperties;
         }
 
         public void AddItem(GameItemGroup itemGroupToAdd)
@@ -30,7 +38,8 @@ namespace Engine.Models
             }
             else
             {
-                itemGroup.Quantity += itemGroupToAdd.Quantity;
+                _items.Remove(itemGroup);
+                _items.Add(ItemFactory.CreateGameItemGroup(itemGroup.Item, itemGroup.Quantity + itemGroupToAdd.Quantity));
             }
         }
 
@@ -50,8 +59,18 @@ namespace Engine.Models
             }
             else if (itemGroup.Quantity > itemGroupToRemove.Quantity)
             {
-                itemGroup.Quantity -= itemGroupToRemove.Quantity;
+                _items.Remove(itemGroup);
+                _items.Add(ItemFactory.CreateGameItemGroup(itemGroup.Item, itemGroup.Quantity - itemGroupToRemove.Quantity));
             }
+        }
+
+        private void UpdateDisplayProperties(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            this.Weapons = new(_items.Where(item => item.Item is Weapon));
+            this.Craftables = new(_items.Where(item => item.Item is Craftable));
+        
+            OnPropertyChanged(nameof(Weapons));
+            OnPropertyChanged(nameof(Craftables));
         }
     }
 }

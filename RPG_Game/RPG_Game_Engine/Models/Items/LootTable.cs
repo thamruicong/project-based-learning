@@ -9,23 +9,22 @@ namespace Engine.Models.Items
 {
     public class LootTable
     {
-        public List<DropChance> DropChances { get; private set; }
+        private List<DropChance> DropChances { get; set; }
 
         public LootTable(List<DropChance> dropChances)
         {
             DropChances = dropChances;
         }
 
-        public Inventory RollLoot()
+        internal Inventory RollLoot()
         {
             Inventory inventory = new();
-            Random random = new();
 
             foreach (DropChance dropChance in DropChances)
             {
-                if (random.Next(1, 101) <= dropChance.DropPercentage)
+                if (RandomNumberGenerator.NumberBetweenInclusive(1, 100) <= dropChance.DropPercentage)
                 {
-                    inventory.AddItem(ItemFactory.CreateGameItemGroup(dropChance.ItemID, random.Next(dropChance.MinimumQuantity, dropChance.MaximumQuantity + 1)));
+                    inventory.AddItem(ItemFactory.CreateGameItemGroup(dropChance.ItemID, RandomNumberGenerator.NumberBetweenInclusive(dropChance.MinimumQuantity, dropChance.MaximumQuantity)));
                 }
             }
 

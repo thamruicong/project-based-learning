@@ -13,10 +13,10 @@ namespace Engine.Controllers
     {
         #region Properties
 
-        private Location _currentLocation;
+        private Location? _currentLocation;
         private Monster? _currentMonster;
-        public Player CurrentPlayer { get; set; }
-        public Location CurrentLocation
+        public Player CurrentPlayer { get; private set; }
+        public Location? CurrentLocation
         {
             get { return _currentLocation; }
             set 
@@ -38,7 +38,17 @@ namespace Engine.Controllers
         }
         public bool HasMonster => CurrentMonster != null;
         public bool IsInBattle => HasMonster && CurrentMonster?.CurrentHitPoints > 0;
-        internal World CurrentWorld { get; set; }
+        private World CurrentWorld { get; set; }
+
+        #endregion
+
+        #region Game Variables
+
+        internal enum AttackResult
+        {
+            ATTACK_SUCCESS,
+            ATTACK_FAILURE
+        }
 
         #endregion
 
@@ -51,8 +61,6 @@ namespace Engine.Controllers
             this.CurrentPlayer.Inventory.AddItem(ItemFactory.CreateGameItemGroup(1001, 1));
             this.CurrentPlayer.Inventory.AddItem(ItemFactory.CreateGameItemGroup(1001, 2));
             this.CurrentPlayer.Inventory.AddItem(ItemFactory.CreateGameItemGroup(1002, 1));
-            this.CurrentPlayer.Inventory.AddItem(ItemFactory.CreateGameItemGroup(9002, 5));
-            this.CurrentPlayer.Inventory.AddItem(ItemFactory.CreateGameItemGroup(9006, 8));
 
             if (!CurrentPlayer.Inventory.Weapons.Any())
             {
@@ -62,7 +70,7 @@ namespace Engine.Controllers
 
         public void OnClick_Move()
         {
-            this.CurrentLocation = this.CurrentWorld.GetLocation(this.CurrentLocation);
+            this.CurrentLocation = this.CurrentWorld.GetRandomLocation(this.CurrentLocation);
             this.CurrentMonster = MonsterFactory.GetRandomMonster();
             
             GameMessage.RaiseMessage(this, $"You see a {this.CurrentMonster.Name} here!");
@@ -70,7 +78,7 @@ namespace Engine.Controllers
 
         public void OnClick_Shop()
         {
-            this.CurrentLocation = this.CurrentWorld.GetLocation("Shop");
+            this.CurrentLocation = this.CurrentWorld.GetSpecialLocation("Shop");
             this.CurrentMonster = null;
             
             GameMessage.RaiseMessage(this, $"You have entered the shop!");
@@ -78,7 +86,29 @@ namespace Engine.Controllers
 
         public void OnClick_Attack()
         {
-            this.CurrentPlayer.Attack(this.CurrentMonster!);
+            if (this.CurrentPlayer.Attack(this.CurrentMonster!) == AttackResult.ATTACK_FAILURE)
+            {
+                return;
+            }
+
+            if (this.CurrentMonster!.CurrentHitPoints <= 0)
+            {
+                GameMessage.RaiseMessage(this, "");
+                GameMessage.RaiseMessage(this, $"You defeated the {this.CurrentMonster.Name}!");
+
+                this.CurrentMonster.ReleaseRewards(this.CurrentPlayer);
+                this.CurrentMonster = null;
+
+                return;
+            }
+
+            this.CurrentMonster.Attack(this.CurrentPlayer);
+
+            if (this.CurrentPlayer.CurrentHitPoints <= 0)
+            {
+                GameMessage.RaiseMessage(this, "");
+                GameMessage.RaiseMessage(this, $"You were defeated by the {this.CurrentMonster.Name}!");
+            }
         }
     }
 }

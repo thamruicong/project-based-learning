@@ -22,24 +22,23 @@ namespace Engine.Models
             _special_locations.Add(key, new Location(name, description, imageName));
         }
 
-        internal Location GetLocation(Location prev)
+        internal Location GetRandomLocation(Location? prev)
         {
             while (true)
             {
-                Random random = new();
-                int index = random.Next(_locations.Count);
-                if (0 <= index && index < _locations.Count && _locations[index] != prev)
+                int index = RandomNumberGenerator.NumberBetweenExclusive(_locations.Count);
+                if (_locations[index] != prev)
                 {
-                    return _locations.ElementAt(index);
+                    return _locations[index];
                 }
             }
         }
 
-        internal Location GetLocation(string key)
+        internal Location GetSpecialLocation(string key)
         {
             if (!_special_locations.ContainsKey(key))
             {
-                throw new KeyNotFoundException(string.Format("Key not found in {0} dictionary", nameof(_special_locations)));
+                throw new KeyNotFoundException(string.Format("Key {0} not found in {1} dictionary", key, nameof(_special_locations)));
             }
             
             return _special_locations[key];

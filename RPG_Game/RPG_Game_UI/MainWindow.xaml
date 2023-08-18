@@ -35,7 +35,7 @@
             </Grid.RowDefinitions>
 
             <!-- Player Info -->
-            <Grid Grid.Row="0" Background="Aquamarine">
+            <Grid Grid.Row="0" Background="AntiqueWhite">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -74,6 +74,30 @@
             <Grid Grid.Row="1" Background="BurlyWood">
                 <TabControl>
                     <TabItem Header="Weapons">
+                        <DataGrid ItemsSource="{Binding CurrentPlayer.Inventory.Weapons}" 
+                                AutoGenerateColumns="False" 
+                                HeadersVisibility="Column" 
+                                CanUserResizeColumns="False" 
+                                IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Name" Binding="{Binding Item.Name}" Width="*" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Header="Crafting">
+                        <DataGrid ItemsSource="{Binding CurrentPlayer.Inventory.Craftables}" 
+                                AutoGenerateColumns="False" 
+                                HeadersVisibility="Column" 
+                                CanUserResizeColumns="False" 
+                                IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Name" Binding="{Binding Item.Name}" Width="*" />
+                                <DataGridTextColumn Header="Price" Binding="{Binding Item.Price, TargetNullValue='-'}" Width="Auto" />
+                                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="Auto" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Header="All">
                         <DataGrid ItemsSource="{Binding CurrentPlayer.Inventory.Items}" 
                                 AutoGenerateColumns="False" 
                                 HeadersVisibility="Column" 
@@ -81,16 +105,10 @@
                                 IsReadOnly="True">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Name" Binding="{Binding Item.Name}" Width="*" />
-                                <!-- <DataGridTextColumn Header="Price" Binding="{Binding Item.Price, TargetNullValue='-'}" Width="Auto" /> -->
+                                <DataGridTextColumn Header="Price" Binding="{Binding Item.Price, TargetNullValue='-'}" Width="Auto" />
                                 <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="Auto" />
                             </DataGrid.Columns>
                         </DataGrid>
-                    </TabItem>
-                    <TabItem Header="Items">
-                        
-                    </TabItem>
-                    <TabItem Header="Crafting">
-                        
                     </TabItem>
                 </TabControl>
             </Grid>
@@ -121,7 +139,7 @@
 
             <!-- Location -->
             <Border Grid.Row="0" Grid.Column="1" BorderBrush="Gainsboro" BorderThickness="1">
-                <Grid>
+                <Grid Background="Beige" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
@@ -138,7 +156,7 @@
 
             <!-- Monster -->
             <Border Grid.Row="1" Grid.Column="1" BorderBrush="Gainsboro" BorderThickness="1">
-                <Grid>
+                <Grid Background="Beige" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
@@ -159,24 +177,22 @@
             </Border>
 
             <!-- Combat Options -->
-            <Grid Grid.Row="2" Grid.Column="0" Background="Lavender" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding IsInBattle, Converter={StaticResource BooleanToVisibility}}">
-                <Grid.RowDefinitions>
-                    <!-- <RowDefinition Height="Auto" /> -->
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+            <UniformGrid Grid.Row="2" Grid.Column="0" Background="Moccasin">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding IsInBattle, Converter={StaticResource BooleanToVisibility}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="50" />
+                    </Grid.ColumnDefinitions>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150" />
-                    <ColumnDefinition Width="10" />
-                    <ColumnDefinition Width="50" />
-                </Grid.ColumnDefinitions>
-
-                <ComboBox Grid.Row="0" Grid.Column="0" ItemsSource="{Binding CurrentPlayer.Inventory.Weapons}" SelectedItem="{Binding CurrentPlayer.Weapon}" DisplayMemberPath="Item.Name" />
-                <Button Grid.Row="0" Grid.Column="2" Content="Attack" HorizontalAlignment="Center" VerticalAlignment="Center" Click="OnClick_Attack" />
-            </Grid>
+                    <ComboBox Grid.Column="0" ItemsSource="{Binding CurrentPlayer.Inventory.Weapons}" SelectedItem="{Binding CurrentPlayer.ItemInHand}" DisplayMemberPath="Item.Name" />
+                    <Button Grid.Column="2" Content="Attack" Click="OnClick_Attack" />
+                </Grid>
+            </UniformGrid>
+            
             
             <!-- Movement Options --> 
-            <Grid Grid.Row="2" Grid.Column="1" Background="LightGreen">
+            <Grid Grid.Row="2" Grid.Column="1" Background="Moccasin">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />

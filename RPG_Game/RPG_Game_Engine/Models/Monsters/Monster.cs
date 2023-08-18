@@ -4,6 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Engine.Models.Items;
+using Engine.EventArgs;
 
 namespace Engine.Models.Monsters
 {
@@ -27,8 +28,8 @@ namespace Engine.Models.Monsters
         public int MaximumDamage { get; private set; }
         public int RewardExperiencePoints { get; private set; }
         public int RewardGold { get; private set; }
-        public LootTable LootTable { get; private set;}
-        public Inventory? Inventory { get; private set; }
+        private LootTable LootTable { get; set;}
+        private Inventory? Inventory { get; set; }
 
         // Constructor for initializing a monster with a loot table
         public Monster(int monsterID, string name, string imageName, int maximumHitPoints, int minimumDamage, int maximumDamage, int rewardExperiencePoints, int rewardGold, LootTable lootTable)
@@ -70,6 +71,48 @@ namespace Engine.Models.Monsters
         object ICloneable.Clone()
         {
             return Clone();
+        }
+
+        internal void Attack(Player player)
+        {
+            int damageToPlayer = RandomNumberGenerator.NumberBetweenInclusive(this.MinimumDamage, this.MaximumDamage);
+
+            player.TakeDamage(this, damageToPlayer);
+        }
+
+        internal void TakeDamage(int damageToMonster)
+        {
+            if (damageToMonster == 0)
+            {
+                GameMessage.RaiseMessage(this, $"You missed the {this.Name}.");
+            }
+            else
+            {
+                this.CurrentHitPoints -= damageToMonster;
+                GameMessage.RaiseMessage(this, $"You hit the {this.Name} for {damageToMonster} points.");
+            }
+        }
+
+        internal void ReleaseRewards(Player player)
+        {
+            player.ExperiencePoints += this.RewardExperiencePoints;
+            GameMessage.RaiseMessage(this, $"You receive {this.RewardExperiencePoints} experience points.");
+
+            player.Gold += this.RewardGold;
+            GameMessage.RaiseMessage(this, $"You receive {this.RewardGold} gold.");
+
+            if (this.Inventory == null)
+            {
+                return;
+            }
+
+            foreach (GameItemGroup gameItemGroup in this.Inventory.Items)
+            {
+                player.Inventory.AddItem(gameItemGroup);
+                GameMessage.RaiseMessage(this, $"You receive {gameItemGroup.Quantity} {gameItemGroup.Item.Name}.");
+            }
+            
+            this.Inventory = null;
         }
     }
 }

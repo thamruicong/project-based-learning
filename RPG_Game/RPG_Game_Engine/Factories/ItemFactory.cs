@@ -36,31 +36,31 @@ namespace Engine.Factories
                 )},
                 {9002, new Craftable(
                     itemID: 9002, 
-                    name: "Snake venom", 
+                    name: "Snake Venom", 
                     description: "One drop can kill.", 
                     price: 10
                 )},
                 {9003, new Craftable(
                     itemID: 9003, 
-                    name: "Rat tail", 
+                    name: "Rat Tail", 
                     description: "Looks gross.", 
                     price: 1
                 )},
                 {9004, new Craftable(
                     itemID: 9004, 
-                    name: "Rat meat", 
+                    name: "Rat Meat", 
                     description: "Edible, but not very tasty.", 
                     price: 2
                 )},
                 {9005, new Craftable(
                     itemID: 9005, 
-                    name: "Spider fang", 
+                    name: "Spider Fang", 
                     description: "Sharp and poisonous.", 
                     price: 5
                 )},
                 {9006, new Craftable(
                     itemID: 9006, 
-                    name: "Spider silk", 
+                    name: "Spider Silk", 
                     description: "Strong and flexible.", 
                     price: 3
                 )},
@@ -80,6 +80,11 @@ namespace Engine.Factories
         internal static GameItemGroup CreateGameItemGroup(int itemID, int quantity)
         {
             GameItem item = CreateGameItem(itemID);
+            return new GameItemGroup(item, quantity);
+        }
+
+        internal static GameItemGroup CreateGameItemGroup(GameItem item, int quantity)
+        {
             return new GameItemGroup(item, quantity);
         }
     }

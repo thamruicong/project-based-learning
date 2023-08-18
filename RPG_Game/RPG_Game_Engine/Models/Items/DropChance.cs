@@ -14,12 +14,12 @@ namespace Engine.Models.Items
         public int MinimumQuantity { get; private set; }
         public int MaximumQuantity { get; private set; }
 
-        public DropChance(int itemID, int dropPercentage, int MinimumQuantity, int MaximumQuantity)
+        public DropChance(int itemID, int dropPercentage, int minimumQuantity, int maximumQuantity)
         {
             this.ItemID = itemID;
             this.DropPercentage = dropPercentage;
-            this.MinimumQuantity = MinimumQuantity;
-            this.MaximumQuantity = MaximumQuantity;
+            this.MinimumQuantity = minimumQuantity;
+            this.MaximumQuantity = maximumQuantity;
         }
     }
 }
