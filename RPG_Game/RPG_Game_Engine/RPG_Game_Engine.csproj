@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include=".\Images\Locations\FarmFields.png" />
+    <Resource Include=".\Images\Locations\Farmhouse.png" />
+    <Resource Include=".\Images\Locations\HerbalistsGarden.png" />
+    <Resource Include=".\Images\Locations\HerbalistsHut.png" />
+    <Resource Include=".\Images\Locations\Home.png" />
+    <Resource Include=".\Images\Locations\SpiderForest.png" />
+    <Resource Include=".\Images\Locations\TownGate.png" />
+    <Resource Include=".\Images\Locations\TownSquare.png" />
+    <Resource Include=".\Images\Locations\Trader.png" />
+    
+    <Resource Include=".\Images\Monsters\Rat.png" />
+    <Resource Include=".\Images\Monsters\Snake.png" />
+    <Resource Include=".\Images\Monsters\Spider.png" />
+  </ItemGroup>
+
+</Project>
