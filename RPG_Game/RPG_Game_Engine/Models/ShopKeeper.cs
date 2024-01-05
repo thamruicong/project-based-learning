@@ -19,6 +19,7 @@ namespace Engine.Models
         private readonly Inventory _inventory = new();
         private ShopKeeper()
         {
+            _inventory.AddItem(ItemFactory.CreateGameItemGroup(3001, 1));
             _inventory.AddItem(ItemFactory.CreateGameItemGroup(9001, 1));
             _inventory.AddItem(ItemFactory.CreateGameItemGroup(9002, 1));
             _inventory.AddItem(ItemFactory.CreateGameItemGroup(9003, 1));

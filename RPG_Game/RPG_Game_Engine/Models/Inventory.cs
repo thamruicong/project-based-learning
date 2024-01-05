@@ -20,6 +20,8 @@ namespace Engine.Models
         #region Display Properties
         public List<GameItemGroup> Weapons { get; private set;}
         public List<GameItemGroup> Craftables { get; private set;}
+        public List<GameItemGroup> Consumables { get; private set;}
+        public List<GameItemGroup> Usables { get; private set;}
 
         #endregion
 
@@ -69,9 +71,13 @@ namespace Engine.Models
         {
             this.Weapons = new(_items.Where(item => item.Item is Weapon));
             this.Craftables = new(_items.Where(item => item.Item is Craftable));
-        
+            this.Consumables = new(_items.Where(item => item.Item is Consumable));
+            this.Usables = new(_items.Where(item => item.Item is Weapon or Consumable));
+
             OnPropertyChanged(nameof(Weapons));
             OnPropertyChanged(nameof(Craftables));
+            OnPropertyChanged(nameof(Consumables));
+            OnPropertyChanged(nameof(Usables));
         }
     }
 }

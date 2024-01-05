@@ -29,6 +29,11 @@ namespace Engine.Factories
                     maximumDamage: 3, 
                     price: 5
                 )},
+                {3001, new Consumable(
+                    itemID: 3001, 
+                    name: "Healing Gauze",
+                    price: 7
+                )},
                 {9001, new Craftable(
                     itemID: 9001, 
                     name: "Snakeskin", 

@@ -78,31 +78,15 @@ namespace Engine.Controllers
             GameMessage.RaiseMessage(this, $"You see a {this.CurrentMonster.Name} here!");
         }
 
-        public void OnClick_Attack()
+        public void OnClick_Use()
         {
-            if (this.CurrentPlayer.Attack(this.CurrentMonster!) == AttackResult.ATTACK_FAILURE)
+            if (this.CurrentPlayer.ItemInHand is null)
             {
+                GameMessage.RaiseMessage(this, "You have nothing to use.");
                 return;
             }
 
-            if (this.CurrentMonster!.CurrentHitPoints <= 0)
-            {
-                GameMessage.RaiseMessage(this, "");
-                GameMessage.RaiseMessage(this, $"You defeated the {this.CurrentMonster.Name}!");
-
-                this.CurrentMonster.ReleaseRewards(this.CurrentPlayer);
-                this.CurrentMonster = null;
-
-                return;
-            }
-
-            this.CurrentMonster.Attack(this.CurrentPlayer);
-
-            if (this.CurrentPlayer.CurrentHitPoints <= 0)
-            {
-                GameMessage.RaiseMessage(this, "");
-                GameMessage.RaiseMessage(this, $"You were defeated by the {this.CurrentMonster.Name}!");
-            }
+            this.CurrentPlayer.ItemInHand.Item.Use(this);
         }
 
         public void OnClick_Sell(GameItemGroup item)

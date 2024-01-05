@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Engine.Controllers;
 
 namespace Engine.Models.Items.Item
 {
@@ -26,6 +27,7 @@ namespace Engine.Models.Items.Item
         }
 
         public abstract GameItem Clone();
+        public abstract void Use(GameSession gameSession);
 
         public bool IsSameItem(GameItem otherItem)
         {

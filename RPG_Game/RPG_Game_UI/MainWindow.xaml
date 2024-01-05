@@ -8,7 +8,7 @@
         xmlns:Converters="clr-namespace:RPG_Game_UI.Converters"
         d:DataContext="{d:DesignInstance viewModels:GameSession}"
         mc:Ignorable="d"
-        Title="RPG Game" Height="700" Width="800" ResizeMode="CanMinimize">
+        Title="RPG Game" Height="750" Width="900" ResizeMode="CanMinimize">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
         <Converters:InvBooleanToVisibilityConverter x:Key="InvBooleanToVisibility" />
@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="300" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         
@@ -86,6 +86,19 @@
                     </TabItem>
                     <TabItem Header="Crafting">
                         <DataGrid ItemsSource="{Binding CurrentPlayer.Inventory.Craftables}" 
+                                AutoGenerateColumns="False" 
+                                HeadersVisibility="Column" 
+                                CanUserResizeColumns="False" 
+                                IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Name" Binding="{Binding Item.Name}" Width="*" />
+                                <DataGridTextColumn Header="Price" Binding="{Binding Item.Price, TargetNullValue='-'}" Width="Auto" />
+                                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="Auto" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Header="Consumable">
+                        <DataGrid ItemsSource="{Binding CurrentPlayer.Inventory.Consumables}" 
                                 AutoGenerateColumns="False" 
                                 HeadersVisibility="Column" 
                                 CanUserResizeColumns="False" 
@@ -185,8 +198,8 @@
                         <ColumnDefinition Width="50" />
                     </Grid.ColumnDefinitions>
 
-                    <ComboBox Grid.Column="0" ItemsSource="{Binding CurrentPlayer.Inventory.Weapons}" SelectedItem="{Binding CurrentPlayer.ItemInHand}" DisplayMemberPath="Item.Name" />
-                    <Button Grid.Column="2" Content="Attack" Click="OnClick_Attack" />
+                    <ComboBox Grid.Column="0" ItemsSource="{Binding CurrentPlayer.Inventory.Usables}" SelectedItem="{Binding CurrentPlayer.ItemInHand}" DisplayMemberPath="Item.Name" />
+                    <Button Grid.Column="2" Content="Use" Click="OnClick_Use" />
                 </Grid>
             </UniformGrid>
             

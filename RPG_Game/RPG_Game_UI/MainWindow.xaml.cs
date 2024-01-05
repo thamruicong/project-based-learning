@@ -47,9 +47,9 @@ namespace RPG_Game_UI
         }
 
         // TODO: change to general 'use' button, that either attacks with weapon or uses consumable
-        private void OnClick_Attack(object sender, RoutedEventArgs e)
+        private void OnClick_Use(object sender, RoutedEventArgs e)
         {
-            _gameSession.OnClick_Attack();
+            _gameSession.OnClick_Use();
         }
 
         private void OnGameMessageRaised(object sender, GameMessageEventArgs e)
