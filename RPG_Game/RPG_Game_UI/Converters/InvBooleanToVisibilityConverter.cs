@@ -17,14 +17,14 @@ namespace RPG_Game_UI.Converters
                 visibility = v;
             }
 
-            return visibility ? Visibility.Collapsed : Visibility.Visible;
+            return visibility ? Visibility.Hidden : Visibility.Visible;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             Visibility visibility = (Visibility)value;
 
-            return visibility == Visibility.Collapsed;
+            return visibility == Visibility.Hidden;
         }
     }
 }

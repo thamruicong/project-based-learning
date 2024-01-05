@@ -6,6 +6,7 @@ using Engine.Models;
 using Engine.Models.Monsters;
 using Engine.Factories;
 using Engine.EventArgs;
+using Engine.Models.Items.Misc;
 
 namespace Engine.Controllers
 {
@@ -36,6 +37,7 @@ namespace Engine.Controllers
                 OnPropertyChanged(nameof(IsInBattle));
             }
         }
+        public static ShopKeeper ShopKeeper => ShopKeeper.GetInstance();
         public bool HasMonster => CurrentMonster != null;
         public bool IsInBattle => HasMonster && CurrentMonster?.CurrentHitPoints > 0;
         private World CurrentWorld { get; set; }
@@ -76,14 +78,6 @@ namespace Engine.Controllers
             GameMessage.RaiseMessage(this, $"You see a {this.CurrentMonster.Name} here!");
         }
 
-        public void OnClick_Shop()
-        {
-            this.CurrentLocation = this.CurrentWorld.GetSpecialLocation("Shop");
-            this.CurrentMonster = null;
-            
-            GameMessage.RaiseMessage(this, $"You have entered the shop!");
-        }
-
         public void OnClick_Attack()
         {
             if (this.CurrentPlayer.Attack(this.CurrentMonster!) == AttackResult.ATTACK_FAILURE)
@@ -109,6 +103,36 @@ namespace Engine.Controllers
                 GameMessage.RaiseMessage(this, "");
                 GameMessage.RaiseMessage(this, $"You were defeated by the {this.CurrentMonster.Name}!");
             }
+        }
+
+        public void OnClick_Sell(GameItemGroup item)
+        {
+            if (item.Item.Price is null)
+            {
+                return;
+            }
+
+            this.CurrentPlayer.Inventory.RemoveItem(item);
+            this.CurrentPlayer.Gold += (int) item.Item.Price;
+            GameMessage.RaiseMessage(this, $"You sold 1 {item.Item.Name} for {item.Item.Price} gold.");
+        }
+
+        public void OnClick_Buy(GameItemGroup item)
+        {
+            if (item.Item.Price is null)
+            {
+                return;
+            }
+
+            if (this.CurrentPlayer.Gold < (int) item.Item.Price)
+            {
+                GameMessage.RaiseMessage(this, $"You do not have enough gold to buy {item.Item.Name}.");
+                return;
+            }
+
+            this.CurrentPlayer.Inventory.AddItem(item);
+            this.CurrentPlayer.Gold -= (int) item.Item.Price;
+            GameMessage.RaiseMessage(this, $"You bought 1 {item.Item.Name} for {item.Item.Price} gold.");
         }
     }
 }

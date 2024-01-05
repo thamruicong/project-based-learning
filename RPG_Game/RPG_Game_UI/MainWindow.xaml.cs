@@ -36,9 +36,14 @@ namespace RPG_Game_UI
             _gameSession.OnClick_Move();
         }
 
-        private void OnClick_Shop(object sender, RoutedEventArgs e)
+        private void OnClick_DisplayShopWindow(object sender, RoutedEventArgs e)
         {
-            _gameSession.OnClick_Shop();
+            ShopWindow shopWindow = new()
+            {
+                Owner = this,
+                DataContext = _gameSession
+            };
+            shopWindow.ShowDialog();
         }
 
         // TODO: change to general 'use' button, that either attacks with weapon or uses consumable

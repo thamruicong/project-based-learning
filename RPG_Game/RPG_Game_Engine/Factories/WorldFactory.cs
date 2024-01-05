@@ -36,11 +36,7 @@ namespace Engine.Factories
             newWorld.AddLocation("Herbalist's garden",
                 "There are many plants here, with snakes hiding behind them.",
                 "HerbalistsGarden");
-
-            newWorld.AddLocation("Shop", "Trading Shop",
-                "The shop of Susan, the trader.",
-                "Trader");
-
+                
             return newWorld;
         }
     }
