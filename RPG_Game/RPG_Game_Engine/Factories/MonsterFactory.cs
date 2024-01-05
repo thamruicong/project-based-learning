@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Engine.Models.Monsters;
-using Engine.Models.Items;
+using Engine.Models.Items.Misc;
 using Engine.Models;
 
 namespace Engine.Factories

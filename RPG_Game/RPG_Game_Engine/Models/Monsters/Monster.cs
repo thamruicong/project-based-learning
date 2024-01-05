@@ -3,7 +3,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using Engine.Models.Items;
+using Engine.Models.Items.Misc;
 using Engine.EventArgs;
 
 namespace Engine.Models.Monsters

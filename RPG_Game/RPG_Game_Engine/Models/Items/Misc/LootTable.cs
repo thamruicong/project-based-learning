@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Engine.Factories;
 
-namespace Engine.Models.Items
+namespace Engine.Models.Items.Misc
 {
     public class LootTable
     {

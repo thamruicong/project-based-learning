@@ -4,7 +4,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Engine.Controllers;
 using Engine.EventArgs;
-using Engine.Models.Items;
+using Engine.Models.Items.Item;
+using Engine.Models.Items.Misc;
 using Engine.Models.Monsters;
 
 namespace Engine.Models
@@ -99,10 +100,8 @@ namespace Engine.Models
 
             Weapon Weapon = (Weapon)this.ItemInHand.Item;
 
-            int damageToMonster = RandomNumberGenerator.NumberBetweenInclusive(Weapon.MinimumDamage, Weapon.MaximumDamage);
-
             // Hit the monster
-            monster.TakeDamage(damageToMonster);
+            monster.TakeDamage(Weapon.RollDamage());
 
             return GameSession.AttackResult.ATTACK_SUCCESS;
         }

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Engine.Models.Items
+namespace Engine.Models.Items.Item
 {
     public class Craftable : GameItem
     {

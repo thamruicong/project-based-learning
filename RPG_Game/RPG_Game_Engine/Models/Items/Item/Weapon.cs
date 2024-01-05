@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Engine.Models.Items
+namespace Engine.Models.Items.Item
 {
     public class Weapon : GameItem
     {
@@ -19,6 +19,11 @@ namespace Engine.Models.Items
         public override Weapon Clone()
         {
             return new Weapon(this.ItemID, this.Name, this.MinimumDamage, this.MaximumDamage, this.Price);
+        }
+
+        public int RollDamage()
+        {
+            return RandomNumberGenerator.NumberBetweenInclusive(this.MinimumDamage, this.MaximumDamage);
         }
     }
 }

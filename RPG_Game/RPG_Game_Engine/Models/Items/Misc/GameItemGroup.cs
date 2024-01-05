@@ -2,8 +2,9 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Engine.Models.Items.Item;
 
-namespace Engine.Models.Items
+namespace Engine.Models.Items.Misc
 {
     public class GameItemGroup
     {
