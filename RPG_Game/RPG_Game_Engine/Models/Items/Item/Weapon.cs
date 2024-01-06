@@ -31,7 +31,7 @@ namespace Engine.Models.Items.Item
 
         public override void Use(GameSession gameSession)
         {
-            if (gameSession.CurrentPlayer.Attack(gameSession.CurrentMonster!) == GameSession.AttackResult.ATTACK_FAILURE)
+            if (gameSession.CurrentPlayer.Attack(gameSession.CurrentMonster!) == GameStatus.GameVariables.ATTACK_FAILURE)
             {
                 return;
             }

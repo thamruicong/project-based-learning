@@ -90,12 +90,12 @@ namespace Engine.Models
             this.Inventory = new Inventory();
         }
 
-        internal GameSession.AttackResult Attack(Monster monster)
+        internal GameStatus.GameVariables Attack(Monster monster)
         {
             if (this.ItemInHand == null || !(this.ItemInHand.Item is Weapon) || this.ItemInHand.Quantity == 0)
             {
                 GameMessage.RaiseMessage(this, "You must select a weapon to attack.");
-                return GameSession.AttackResult.ATTACK_FAILURE;
+                return GameStatus.GameVariables.ATTACK_FAILURE;
             }
 
             Weapon Weapon = (Weapon)this.ItemInHand.Item;
@@ -103,7 +103,7 @@ namespace Engine.Models
             // Hit the monster
             monster.TakeDamage(Weapon.RollDamage());
 
-            return GameSession.AttackResult.ATTACK_SUCCESS;
+            return GameStatus.GameVariables.ATTACK_SUCCESS;
         }
 
         internal void TakeDamage(Monster monster, int damageToPlayer)

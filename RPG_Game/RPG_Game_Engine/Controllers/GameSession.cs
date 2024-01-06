@@ -44,16 +44,6 @@ namespace Engine.Controllers
 
         #endregion
 
-        #region Game Variables
-
-        internal enum AttackResult
-        {
-            ATTACK_SUCCESS,
-            ATTACK_FAILURE
-        }
-
-        #endregion
-
         public GameSession()
         {
             this.CurrentPlayer = new Player("Scott", "Fighter", 10, 0, 1, 100000);

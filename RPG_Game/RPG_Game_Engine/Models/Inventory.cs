@@ -41,8 +41,7 @@ namespace Engine.Models
             }
             else
             {
-                _items.Remove(itemGroup);
-                _items.Add(ItemFactory.CreateGameItemGroup(itemGroup.Item, itemGroup.Quantity + itemGroupToAdd.Quantity));
+                _items[_items.IndexOf(itemGroup)].IncrementQuantity(itemGroupToAdd.Quantity);
             }
         }
 
@@ -51,19 +50,11 @@ namespace Engine.Models
             GameItemGroup itemGroup = _items.FirstOrDefault(item => item.Item.IsSameItem(itemGroupToRemove.Item)) 
                     ?? throw new ArgumentException(string.Format("Item {0} not found in inventory", itemGroupToRemove.Item.Name));
             
-            if (itemGroup.Quantity < itemGroupToRemove.Quantity)
-            {
-                throw new ArgumentException(string.Format("Item {0} does not have enough quantity", itemGroup.Item.Name));
-            }
+            int newQuantity = _items[_items.IndexOf(itemGroup)].DecrementQuantity(itemGroupToRemove.Quantity);
 
-            if (itemGroup.Quantity == itemGroupToRemove.Quantity)
+            if (newQuantity == 0)
             {
                 _items.Remove(itemGroup);
-            }
-            else if (itemGroup.Quantity > itemGroupToRemove.Quantity)
-            {
-                _items.Remove(itemGroup);
-                _items.Add(ItemFactory.CreateGameItemGroup(itemGroup.Item, itemGroup.Quantity - itemGroupToRemove.Quantity));
             }
         }
 
