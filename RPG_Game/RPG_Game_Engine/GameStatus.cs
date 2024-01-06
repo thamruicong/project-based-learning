@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace Engine
 {
-    public class GameStatus
+    public static class GameStatus
     {
         #region Game Variables
 

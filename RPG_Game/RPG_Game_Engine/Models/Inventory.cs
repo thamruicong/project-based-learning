@@ -63,7 +63,7 @@ namespace Engine.Models
             this.Weapons = new(_items.Where(item => item.Item is Weapon));
             this.Craftables = new(_items.Where(item => item.Item is Craftable));
             this.Consumables = new(_items.Where(item => item.Item is Consumable));
-            this.Usables = new(_items.Where(item => item.Item is Weapon or Consumable));
+            this.Usables = new[] { this.Weapons, this.Consumables}.SelectMany(item => item).ToList();
 
             OnPropertyChanged(nameof(Weapons));
             OnPropertyChanged(nameof(Craftables));
