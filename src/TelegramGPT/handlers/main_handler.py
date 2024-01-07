@@ -1,19 +1,30 @@
-from telegram.ext import CommandHandler, MessageHandler, filters, ConversationHandler
-import utils.utils as utils
 import handlers.chat_handler as chath
 import handlers.game_handler as gameh
 import handlers.google_handler as googleh
 import handlers.util_handler as utilh
+import utils.utils as utils
+from telegram.ext import CommandHandler, MessageHandler, filters, ConversationHandler
 
 def getHandlers():
     utils.init_states()
 
     chat_handler = ConversationHandler(
-        entry_points=[CommandHandler('girl1', chath._chat_girl_1), CommandHandler('custom', chath._chat_custom), CommandHandler('load', chath._chat_load)],
+        entry_points=[
+            CommandHandler('girl1', chath._chat_girl_1),
+            CommandHandler('custom', chath._chat_custom),
+            CommandHandler('load', chath._chat_load)
+        ],
         states={
-            utils.CHAT_CUSTOM_CONFIG: [MessageHandler(filters.TEXT & ~filters.COMMAND, chath._chat_custom_config)],
-            utils.CHAT_MODE: [MessageHandler(filters.TEXT & ~filters.COMMAND, chath._chat), CommandHandler('cancel', chath._chat_cancel)],
-            utils.CHAT_CANCEL: [CommandHandler('save', chath._chat_save)]
+            utils.CHAT_CUSTOM_CONFIG: [
+                MessageHandler(filters.TEXT & ~filters.COMMAND, chath._chat_custom_config)
+            ],
+            utils.CHAT_MODE: [
+                MessageHandler(filters.TEXT & ~filters.COMMAND, chath._chat),
+                CommandHandler('cancel', chath._chat_cancel)
+            ],
+            utils.CHAT_CANCEL: [
+                CommandHandler('save', chath._chat_save)
+            ]
         },
         fallbacks=[CommandHandler('cancel', utilh._cancel)],
         map_to_parent={
@@ -21,13 +32,23 @@ def getHandlers():
         }
     )
 
-    entry_points = [CommandHandler('google', googleh._start_google), CommandHandler('chat', chath._start_chat), CommandHandler('game', gameh._start_game)]
+    entry_points = [
+        CommandHandler('google', googleh._start_google),
+        CommandHandler('chat', chath._start_chat),
+        CommandHandler('game', gameh._start_game)
+    ]
     main_handler = ConversationHandler(
         entry_points=entry_points,
         states={
-            utils.GOOGLE: [MessageHandler(filters.TEXT & ~filters.COMMAND, googleh._google), CommandHandler('help', googleh._google_help)],
+            utils.GOOGLE: [
+                MessageHandler(filters.TEXT & ~filters.COMMAND, googleh._google),
+                CommandHandler('help', googleh._google_help)
+            ],
             utils.CHAT: [chat_handler, CommandHandler('help', chath._chat_help)],
-            utils.GAME: [MessageHandler(filters.TEXT & ~filters.COMMAND, gameh._game), CommandHandler('help', gameh._game_help)],
+            utils.GAME: [
+                MessageHandler(filters.TEXT & ~filters.COMMAND, gameh._game),
+                CommandHandler('help', gameh._game_help)
+            ],
         },
         fallbacks=[CommandHandler('cancel', utilh._cancel)] + entry_points
     )

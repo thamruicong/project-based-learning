@@ -2,17 +2,19 @@
 # Only one chatbot can be built at a time
 
 # Features:
-    # 1. Create the chatbot (this simply creates a new instance of the chatbot)
-    # 2. Build the chatbot with the given prompt
-    # 3. Generate a response from the chatbot
-    # 4. Chatbot remembers chat history
-    # 5. Chatbot can be saved and loaded (to save on tokens)
+#   1. Create the chatbot (this simply creates a new instance of the chatbot)
+#   2. Build the chatbot with the given prompt
+#   3. Generate a response from the chatbot
+#   4. Chatbot remembers chat history
+#   5. Chatbot can be saved and loaded (to save on tokens)
 
-from utils.generate import chat
 import json
 import os
 
+from utils.generate import chat
+
 save_file_name = 'chatbot.json'
+
 
 class ChatBot():
     chathistory = None
@@ -35,7 +37,7 @@ class ChatBot():
     def generate_response(cls, input):
         if ChatBot.chathistory is None:
             raise Exception('Chatbot has not been built yet')
-        
+
         ChatBot.chathistory.append({
             'role': 'user',
             'content': input,
@@ -49,7 +51,7 @@ class ChatBot():
         })
 
         return response
-    
+
     @classmethod
     def save_chatbot(cls):
         if ChatBot.chathistory is None:
@@ -67,7 +69,7 @@ class ChatBot():
     def load_chatbot(cls):
         if (not ChatBot.has_chatbot()):
             raise Exception('Chatbot does not exist')
-        
+
         try:
             with open(save_file_name, 'r') as f:
                 ChatBot.chathistory = json.loads(f.read())
