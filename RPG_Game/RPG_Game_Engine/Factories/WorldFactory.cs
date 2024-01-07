@@ -12,14 +12,14 @@ namespace Engine.Factories
         {
             World newWorld = new();
 
-            newWorld.AddLocation("Farmer's Field", 
-                "There are rows of corn growing here, with giant rats hiding between them.", 
+            newWorld.AddLocation("Farmer's Field",
+                "There are rows of corn growing here, with giant rats hiding between them.",
                 "FarmFields");
             newWorld.AddLocation("Farmer's House",
                 "This is the house of your neighbor, Farmer Ted.",
                 "Farmhouse");
-            newWorld.AddLocation("Home", 
-                "This is your home", 
+            newWorld.AddLocation("Home",
+                "This is your home",
                 "Home");
             newWorld.AddLocation("Town square",
                 "You see a fountain here.",
@@ -36,7 +36,7 @@ namespace Engine.Factories
             newWorld.AddLocation("Herbalist's garden",
                 "There are many plants here, with snakes hiding behind them.",
                 "HerbalistsGarden");
-                
+
             return newWorld;
         }
     }

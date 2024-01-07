@@ -10,7 +10,7 @@ namespace Engine.Models
     {
         private readonly List<Location> _locations = new();
         private readonly Dictionary<string, Location> _special_locations = new();
-        internal World() {}
+        internal World() { }
 
         internal void AddLocation(string name, string description, string imageName)
         {
@@ -40,7 +40,7 @@ namespace Engine.Models
             {
                 throw new KeyNotFoundException(string.Format("Key {0} not found in {1} dictionary", key, nameof(_special_locations)));
             }
-            
+
             return _special_locations[key];
         }
     }

@@ -28,7 +28,7 @@ namespace Engine.Models.Monsters
         public int MaximumDamage { get; private set; }
         public int RewardExperiencePoints { get; private set; }
         public int RewardGold { get; private set; }
-        private LootTable LootTable { get; set;}
+        private LootTable LootTable { get; set; }
         private Inventory? Inventory { get; set; }
 
         // Constructor for initializing a monster with a loot table
@@ -111,7 +111,7 @@ namespace Engine.Models.Monsters
                 player.Inventory.AddItem(gameItemGroup);
                 GameMessage.RaiseMessage(this, $"You receive {gameItemGroup.Quantity} {gameItemGroup.Item.Name}.");
             }
-            
+
             this.Inventory = null;
         }
     }

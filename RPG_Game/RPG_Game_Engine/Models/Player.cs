@@ -20,55 +20,55 @@ namespace Engine.Models
         private int _gold;
 
         public string Name { get; private set; }
-        public string CharacterClass 
+        public string CharacterClass
         {
             get { return _characterClass; }
-            set 
+            set
             {
                 _characterClass = value;
                 OnPropertyChanged(nameof(CharacterClass));
             }
         }
-        public int CurrentHitPoints 
+        public int CurrentHitPoints
         {
             get { return _currentHitPoints; }
-            set 
+            set
             {
                 _currentHitPoints = value;
                 OnPropertyChanged(nameof(CurrentHitPoints));
             }
         }
-        public int MaximumHitPoints 
+        public int MaximumHitPoints
         {
             get { return _maximumHitPoints; }
-            set 
+            set
             {
                 _maximumHitPoints = value;
                 OnPropertyChanged(nameof(MaximumHitPoints));
             }
         }
-        public int ExperiencePoints 
+        public int ExperiencePoints
         {
             get { return _experiencePoints; }
-            set 
+            set
             {
                 _experiencePoints = value;
                 OnPropertyChanged(nameof(ExperiencePoints));
             }
         }
-        public int Level 
+        public int Level
         {
             get { return _level; }
-            set 
+            set
             {
                 _level = value;
                 OnPropertyChanged(nameof(Level));
             }
         }
-        public int Gold 
+        public int Gold
         {
             get { return _gold; }
-            set 
+            set
             {
                 _gold = value;
                 OnPropertyChanged(nameof(Gold));
@@ -77,7 +77,7 @@ namespace Engine.Models
 
         public Inventory Inventory { get; private set; }
         public GameItemGroup? ItemInHand { get; set; }
-    
+
         public Player(string name, string characterClass, int hitPoints, int experiencePoints, int level, int gold)
         {
             this.Name = name;

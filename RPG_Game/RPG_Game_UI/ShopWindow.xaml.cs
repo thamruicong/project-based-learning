@@ -37,7 +37,7 @@ namespace RPG_Game_UI
                 return;
             }
 
-            Session.OnClick_Sell(new (item.Item, 1));
+            Session.OnClick_Sell(new(item.Item, 1));
         }
         private void OnClick_Buy(object sender, RoutedEventArgs e)
         {
@@ -48,7 +48,7 @@ namespace RPG_Game_UI
                 return;
             }
 
-            Session.OnClick_Buy(new (item.Item, 1));
+            Session.OnClick_Buy(new(item.Item, 1));
         }
         private void OnClick_Close(object sender, RoutedEventArgs e)
         {

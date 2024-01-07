@@ -10,16 +10,16 @@ namespace Engine.Models.Items.Misc
     {
         private int _quantity;
         public GameItem Item { get; set; }
-        public int Quantity 
+        public int Quantity
         {
             get { return _quantity; }
-            set 
+            set
             {
                 _quantity = value;
                 OnPropertyChanged(nameof(Quantity));
             }
         }
-        
+
         public GameItemGroup(GameItem item, int quantity)
         {
             this.Item = item;

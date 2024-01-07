@@ -8,7 +8,7 @@ namespace Engine.Models.Items.Misc
     public class DropChance
     {
         public int ItemID { get; private set; }
-        
+
         // Out of 100
         public int DropPercentage { get; private set; }
         public int MinimumQuantity { get; private set; }

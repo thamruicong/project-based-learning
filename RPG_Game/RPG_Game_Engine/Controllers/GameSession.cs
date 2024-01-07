@@ -20,7 +20,7 @@ namespace Engine.Controllers
         public Location? CurrentLocation
         {
             get { return _currentLocation; }
-            set 
+            set
             {
                 _currentLocation = value;
                 OnPropertyChanged(nameof(CurrentLocation));
@@ -64,7 +64,7 @@ namespace Engine.Controllers
         {
             this.CurrentLocation = this.CurrentWorld.GetRandomLocation(this.CurrentLocation);
             this.CurrentMonster = MonsterFactory.GetRandomMonster();
-            
+
             GameMessage.RaiseMessage(this, $"You see a {this.CurrentMonster.Name} here!");
         }
 
@@ -87,7 +87,7 @@ namespace Engine.Controllers
             }
 
             this.CurrentPlayer.Inventory.RemoveItem(item);
-            this.CurrentPlayer.Gold += (int) item.Item.Price;
+            this.CurrentPlayer.Gold += (int)item.Item.Price;
             GameMessage.RaiseMessage(this, $"You sold 1 {item.Item.Name} for {item.Item.Price} gold.");
         }
 
@@ -98,14 +98,14 @@ namespace Engine.Controllers
                 return;
             }
 
-            if (this.CurrentPlayer.Gold < (int) item.Item.Price)
+            if (this.CurrentPlayer.Gold < (int)item.Item.Price)
             {
                 GameMessage.RaiseMessage(this, $"You do not have enough gold to buy {item.Item.Name}.");
                 return;
             }
 
             this.CurrentPlayer.Inventory.AddItem(item);
-            this.CurrentPlayer.Gold -= (int) item.Item.Price;
+            this.CurrentPlayer.Gold -= (int)item.Item.Price;
             GameMessage.RaiseMessage(this, $"You bought 1 {item.Item.Name} for {item.Item.Price} gold.");
         }
     }

@@ -28,9 +28,10 @@ namespace Engine.Models
             _inventory.AddItem(ItemFactory.CreateGameItemGroup(9006, 1));
         }
 
-        public Inventory Inventory 
+        public Inventory Inventory
         {
-            get { return _inventory; } set {}
+            get { return _inventory; }
+            set { }
         }
     }
 }

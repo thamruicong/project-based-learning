@@ -9,7 +9,7 @@ namespace Engine.Models.Items.Item
 {
     public class Consumable : GameItem
     {
-        public Consumable(int itemID, string name, int? price = null) : base(itemID, name, price) {}
+        public Consumable(int itemID, string name, int? price = null) : base(itemID, name, price) { }
 
         public override Consumable Clone()
         {

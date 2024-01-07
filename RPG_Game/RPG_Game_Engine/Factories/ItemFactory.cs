@@ -17,57 +17,57 @@ namespace Engine.Factories
             _gameItems = new Dictionary<int, GameItem>
             {
                 {1001, new Weapon(
-                    itemID: 1001, 
-                    name: "Pointy Stick", 
-                    minimumDamage: 1, 
+                    itemID: 1001,
+                    name: "Pointy Stick",
+                    minimumDamage: 1,
                     maximumDamage: 2
                 )},
                 {1002, new Weapon(
-                    itemID: 1002, 
-                    name: "Rusty Sword", 
-                    minimumDamage: 2, 
-                    maximumDamage: 3, 
+                    itemID: 1002,
+                    name: "Rusty Sword",
+                    minimumDamage: 2,
+                    maximumDamage: 3,
                     price: 5
                 )},
                 {3001, new Consumable(
-                    itemID: 3001, 
+                    itemID: 3001,
                     name: "Healing Gauze",
                     price: 7
                 )},
                 {9001, new Craftable(
-                    itemID: 9001, 
-                    name: "Snakeskin", 
+                    itemID: 9001,
+                    name: "Snakeskin",
                     description: "The skin of a snake. Looks durable.",
                     price: 2
                 )},
                 {9002, new Craftable(
-                    itemID: 9002, 
-                    name: "Snake Venom", 
-                    description: "One drop can kill.", 
+                    itemID: 9002,
+                    name: "Snake Venom",
+                    description: "One drop can kill.",
                     price: 10
                 )},
                 {9003, new Craftable(
-                    itemID: 9003, 
-                    name: "Rat Tail", 
-                    description: "Looks gross.", 
+                    itemID: 9003,
+                    name: "Rat Tail",
+                    description: "Looks gross.",
                     price: 1
                 )},
                 {9004, new Craftable(
-                    itemID: 9004, 
-                    name: "Rat Meat", 
-                    description: "Edible, but not very tasty.", 
+                    itemID: 9004,
+                    name: "Rat Meat",
+                    description: "Edible, but not very tasty.",
                     price: 2
                 )},
                 {9005, new Craftable(
-                    itemID: 9005, 
-                    name: "Spider Fang", 
-                    description: "Sharp and poisonous.", 
+                    itemID: 9005,
+                    name: "Spider Fang",
+                    description: "Sharp and poisonous.",
                     price: 5
                 )},
                 {9006, new Craftable(
-                    itemID: 9006, 
-                    name: "Spider Silk", 
-                    description: "Strong and flexible.", 
+                    itemID: 9006,
+                    name: "Spider Silk",
+                    description: "Strong and flexible.",
                     price: 3
                 )},
             };
@@ -79,7 +79,7 @@ namespace Engine.Factories
             {
                 throw new ArgumentException(string.Format("Item ID {0} does not exist", itemID));
             }
-            
+
             return _gameItems[itemID].Clone();
         }
 
