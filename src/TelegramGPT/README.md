@@ -8,20 +8,20 @@ This is a project that combines both the Telegram Chatbot API as well as OpenAI 
 
 NOTE: A `.env` file is required with the contents:
 
-```
+```yaml
 TELEGRAM_TOKEN=...
 OPENAI_API_KEY=...
 ```
 
 Dependencies:
 
--   python-telegram-bot 20.3
--   openai 0.27.8
+- python-telegram-bot 20.3
+- openai 0.27.8
 
 References:
 
--   ~~[Telegram Bot Features](https://core.telegram.org/bots/features)~~
--   ~~[Telegram Bot API](https://core.telegram.org/bots/api)~~
--   [python-telegram-bot](https://python-telegram-bot.org/) (my Bot API library of choice)
--   [Introduction to API](https://github.com/python-telegram-bot/python-telegram-bot/wiki/Introduction-to-the-API)
--   [Your First Bot](https://github.com/python-telegram-bot/python-telegram-bot/wiki/Extensions---Your-first-Bot)
+- ~~[Telegram Bot Features](https://core.telegram.org/bots/features)~~
+- ~~[Telegram Bot API](https://core.telegram.org/bots/api)~~
+- [python-telegram-bot](https://python-telegram-bot.org/) (my Bot API library of choice)
+- [Introduction to API](https://github.com/python-telegram-bot/python-telegram-bot/wiki/Introduction-to-the-API)
+- [Your First Bot](https://github.com/python-telegram-bot/python-telegram-bot/wiki/Extensions---Your-first-Bot)

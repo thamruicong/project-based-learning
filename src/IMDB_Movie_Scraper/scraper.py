@@ -41,6 +41,7 @@ def get_movie_info(movie):
         "path": movie.find("h3", class_="lister-item-header").a["href"],
     }
 
+
 movie_list = list(map(get_movie_info, movie_list))
 
 for idx, movie in enumerate(movie_list, 1):

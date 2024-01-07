@@ -9,7 +9,7 @@ openai.api_key = getOpenAIAPIKey()
 MAX_TOKENS = 100
 
 
-def query(prompt, model='text-davinci-003'):
+def query(prompt, model="text-davinci-003"):
     response = openai.Completion.create(
         model=model,
         prompt=prompt,
@@ -20,7 +20,7 @@ def query(prompt, model='text-davinci-003'):
     return response.choices[0].text.strip()
 
 
-def chat(messages, model='gpt-3.5-turbo'):
+def chat(messages, model="gpt-3.5-turbo"):
     response = openai.ChatCompletion.create(
         model=model,
         messages=messages,

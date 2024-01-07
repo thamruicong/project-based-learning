@@ -13,52 +13,58 @@ import os
 
 from utils.generate import chat
 
-save_file_name = 'chatbot.json'
+save_file_name = "chatbot.json"
 
 
-class ChatBot():
+class ChatBot:
     chathistory = None
 
     def __init__(self):
-        raise Exception('ChatBot is a static class and should not be instantiated')
+        raise Exception("ChatBot is a static class and should not be instantiated")
 
     @classmethod
     def build(cls, prompt):
         ChatBot.chathistory = []
 
-        ChatBot.chathistory.append({
-            'role': 'system',
-            'content': prompt,
-        })
+        ChatBot.chathistory.append(
+            {
+                "role": "system",
+                "content": prompt,
+            }
+        )
 
         return ChatBot
 
     @classmethod
     def generate_response(cls, input):
         if ChatBot.chathistory is None:
-            raise Exception('Chatbot has not been built yet')
+            raise Exception("Chatbot has not been built yet")
 
-        ChatBot.chathistory.append({
-            'role': 'user',
-            'content': input,
-        })
+        ChatBot.chathistory.append(
+            {
+                "role": "user",
+                "content": input,
+            }
+        )
 
         response = chat(ChatBot.chathistory)
 
-        ChatBot.chathistory.append({
-            'role': 'assistant',
-            'content': response,
-        })
+        ChatBot.chathistory.append(
+            {
+                "role": "assistant",
+                "content": response,
+            }
+        )
 
         return response
 
     @classmethod
     def save_chatbot(cls):
         if ChatBot.chathistory is None:
-            raise Exception('Chatbot has not been built yet')
+            raise Exception("Chatbot has not been built yet")
 
         try:
-            with open(save_file_name, 'w') as f:
+            with open(save_file_name, "w") as f:
                 f.write(json.dumps(ChatBot.chathistory, indent=4))
         except Exception as e:
             raise Exception(e)
@@ -67,11 +73,11 @@ class ChatBot():
 
     @classmethod
     def load_chatbot(cls):
-        if (not ChatBot.has_chatbot()):
-            raise Exception('Chatbot does not exist')
+        if not ChatBot.has_chatbot():
+            raise Exception("Chatbot does not exist")
 
         try:
-            with open(save_file_name, 'r') as f:
+            with open(save_file_name, "r") as f:
                 ChatBot.chathistory = json.loads(f.read())
         except Exception as e:
             raise Exception(e)
