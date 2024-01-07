@@ -2,7 +2,7 @@
 
 Date Started: 08/08/2023
 
-Date Completed: 
+Date Completed: 07/01/2024
 
 This is a mini-project to learn about C# and also to create my own RPG Game. Here is the [link](https://soscsrpg.com/) to the guide that I followed.
 
