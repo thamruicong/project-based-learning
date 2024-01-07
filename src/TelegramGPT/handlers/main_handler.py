@@ -13,7 +13,7 @@ def getHandlers():
         entry_points=[
             CommandHandler("girl1", chath._chat_girl_1),
             CommandHandler("custom", chath._chat_custom),
-            CommandHandler("load", chath._chat_load)
+            CommandHandler("load", chath._chat_load),
         ],
         states={
             utils.CHAT_CUSTOM_CONFIG: [
@@ -28,7 +28,7 @@ def getHandlers():
             utils.CHAT_CANCEL: [CommandHandler("save", chath._chat_save)],
         },
         fallbacks=[CommandHandler("cancel", utilh._cancel)],
-        map_to_parent={ConversationHandler.END : ConversationHandler.END},
+        map_to_parent={ConversationHandler.END: ConversationHandler.END},
     )
 
     entry_points = [
@@ -62,5 +62,5 @@ def getHandlers():
         main_handler,
         help_command_handler,
         invalid_command_handler,
-        invalid_input_handler
+        invalid_input_handler,
     ]

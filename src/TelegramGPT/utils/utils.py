@@ -65,6 +65,7 @@ CHAT_MODE = 0
 CHAT_CUSTOM_CONFIG = 1
 CHAT_CANCEL = 2
 
+
 def init_states():
     # states = ["GOOGLE", "CHAT", "GAME"]
     # chat_states = ["CHAT_MODE", "CHAT_CUSTOM_CONFIG", "CHAT_CANCEL"]
