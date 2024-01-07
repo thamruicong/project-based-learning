@@ -30,3 +30,7 @@ jobs:
           DEFAULT_BRANCH: main
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Exclude forked files from checks
+          FILTER_REGEX_INCLUDE: .*src/.*
+          # Ignore .gitignore files
+          IGNORE_GITIGNORED_FILES: true
