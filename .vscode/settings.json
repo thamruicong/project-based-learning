@@ -1,3 +1,4 @@
 {
-    "dotnet.defaultSolution": "RPG_Game/RPG_Game.sln"
+    "dotnet.defaultSolution": "RPG_Game/RPG_Game.sln",
+    "editor.formatOnSave": true
 }
