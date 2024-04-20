@@ -35,4 +35,4 @@ jobs:
                   # Ignore .gitignore files
                   IGNORE_GITIGNORED_FILES: true
                   # Custom Java Checkstyle configuration
-                  JAVA_FILE_NAME: custom_checks.xml
+                  JAVA_FILE_NAME: my_java_checkstyle.xml
