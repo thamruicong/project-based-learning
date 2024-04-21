@@ -101,6 +101,7 @@
   <module name="TreeWalker">
 
     <!-- See https://checkstyle.org/checks/annotation/suppresswarnings.html -->
+    <module name="SuppressWarnings"/>
     <module name="SuppressWarningsHolder"/>
 
     <!-- Checks for Javadoc comments.                     -->

@@ -8,8 +8,8 @@ This is a mini-project to learn about how compilers work by attempting to implem
 
 Dependencies:
 
-- 
+-
 
 References:
 
-- 
+-
