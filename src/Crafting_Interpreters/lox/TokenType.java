@@ -1,6 +1,6 @@
 package lox;
 
-@SuppressWarnings("checkstyle:javadocvariable")
+@SuppressWarnings("checkstyle:JavadocVariable")
 enum TokenType {
     // Single-character tokens.
     LEFT_PAREN, RIGHT_PAREN, LEFT_BRACE, RIGHT_BRACE,

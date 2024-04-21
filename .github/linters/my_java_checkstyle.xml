@@ -95,7 +95,13 @@
   <!--   <property name="fileExtensions" value="java"/> -->
   <!-- </module> -->
 
+  <!-- See https://checkstyle.org/checks/annotation/suppresswarnings.html -->
+  <module name="SuppressWarningsFilter" />
+
   <module name="TreeWalker">
+
+    <!-- See https://checkstyle.org/checks/annotation/suppresswarnings.html -->
+    <module name="SuppressWarningsHolder"/>
 
     <!-- Checks for Javadoc comments.                     -->
     <!-- See https://checkstyle.org/checks/javadoc/index.html -->
