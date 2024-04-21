@@ -9,12 +9,37 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class Lox {
-    static boolean hadError = false;
+    /**
+     * A flag to indicate if an error occurred during the execution of the program.
+     */
+    private static boolean hadError = false;
+    
+    /**
+     * The exit code to indicate a usage error.
+     */
+    private static final int EX_USAGE = 64;
 
+    /**
+     * The exit code to indicate a data error.
+     */
+    private static final int EX_DATAERR = 65;
+
+
+    /**
+     * Private constructor to prevent instantiation of this class.
+     */
+    private Lox() { }
+
+    /**
+     * The entry point of the program.
+     * 
+     * @param args The command line arguments.
+     * @throws IOException If an I/O error occurs.
+     */
     public static void main(String[] args) throws IOException {
         if (args.length > 1) {
             System.out.println("Usage: jlox [script]");
-            System.exit(64); 
+            System.exit(EX_USAGE); 
         } else if (args.length == 1) {
             runFile(args[0]);
         } else {
@@ -27,9 +52,9 @@ public class Lox {
         run(new String(bytes, Charset.defaultCharset()));
     
         // Indicate an error in the exit code.
-        if (hadError) System.exit(65);
+        if (hadError) System.exit(EX_DATAERR);
     }
-  
+
     private static void runPrompt() throws IOException {
         InputStreamReader input = new InputStreamReader(System.in);
         BufferedReader reader = new BufferedReader(input);
@@ -53,12 +78,20 @@ public class Lox {
         }
     }
 
-    static void error(int line, String message) {
+    /**
+     * Report an error.
+     * 
+     * @param line The line number where the error occurred.
+     * @param message The error message.
+     */
+    public static void error(int line, String message) {
         report(line, "", message);
     }
 
     private static void report(int line, String where, String message) {
-        System.err.println("[line " + line + "] Error" + where + ": " + message);
+        String msg = String.format("[line %d] Error%s: %s",
+            line, where, message);
+        System.err.println(msg);
         hadError = true;
     }
 }

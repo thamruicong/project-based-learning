@@ -7,42 +7,74 @@ import java.util.Map;
 
 import static lox.TokenType.*;
 
+@SuppressWarnings("avoidstarimport")
 class Scanner {
-    /*
-    * Reserved words
-    */
-    private static final Map<String, TokenType> keywords;
+
+    /**
+     * A map of KEYWORDS to their respective token types.
+     */
+    private static final Map<String, TokenType> KEYWORDS;
 
     static {
-        keywords = new HashMap<>();
-        keywords.put("and",    AND);
-        keywords.put("class",  CLASS);
-        keywords.put("else",   ELSE);
-        keywords.put("false",  FALSE);
-        keywords.put("for",    FOR);
-        keywords.put("fun",    FUN);
-        keywords.put("if",     IF);
-        keywords.put("nil",    NIL);
-        keywords.put("or",     OR);
-        keywords.put("print",  PRINT);
-        keywords.put("return", RETURN);
-        keywords.put("super",  SUPER);
-        keywords.put("this",   THIS);
-        keywords.put("true",   TRUE);
-        keywords.put("var",    VAR);
-        keywords.put("while",  WHILE);
+        KEYWORDS = new HashMap<>();
+        KEYWORDS.put("and",    AND);
+        KEYWORDS.put("class",  CLASS);
+        KEYWORDS.put("else",   ELSE);
+        KEYWORDS.put("false",  FALSE);
+        KEYWORDS.put("for",    FOR);
+        KEYWORDS.put("fun",    FUN);
+        KEYWORDS.put("if",     IF);
+        KEYWORDS.put("nil",    NIL);
+        KEYWORDS.put("or",     OR);
+        KEYWORDS.put("print",  PRINT);
+        KEYWORDS.put("return", RETURN);
+        KEYWORDS.put("super",  SUPER);
+        KEYWORDS.put("this",   THIS);
+        KEYWORDS.put("true",   TRUE);
+        KEYWORDS.put("var",    VAR);
+        KEYWORDS.put("while",  WHILE);
     }
 
+    /**
+     * The source code to scan.
+     */
     private final String source;
+
+    /**
+     * The list of tokens found in the source code.
+     */
     private final List<Token> tokens = new ArrayList<>();
+
+    /**
+     * The index of the first character in the current lexeme.
+     */
     private int start = 0;
+
+    /**
+     * The index of the current character being considered.
+     */
     private int current = 0;
+
+    /**
+     * The current line number in the source code.
+     */
     private int line = 1;
 
+
+    /**
+     * Create a new scanner for the specified source code.
+     * 
+     * @param source The source code to scan.
+     */
     Scanner(String source) {
         this.source = source;
     }
 
+    /**
+     * Scan the source code and return the list of tokens found.
+     * 
+     * @return The list of tokens found in the source code.
+     */
     List<Token> scanTokens() {
         while (!isAtEnd()) {
             // We are at the beginning of the next lexeme.
@@ -149,7 +181,7 @@ class Scanner {
         while (isAlphaNumeric(peek())) advance();
 
         String text = source.substring(start, current);
-        TokenType type = keywords.get(text);
+        TokenType type = KEYWORDS.get(text);
         if (type == null) type = IDENTIFIER;
         addToken(type);
     }
@@ -177,9 +209,9 @@ class Scanner {
     }
 
     private boolean isAlpha(char c) {
-        return (c >= 'a' && c <= 'z') ||
-               (c >= 'A' && c <= 'Z') ||
-                c == '_';
+        return (c >= 'a' && c <= 'z') 
+                || (c >= 'A' && c <= 'Z')
+                || c == '_';
     }
 
     private boolean isAlphaNumeric(char c) {
