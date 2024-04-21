@@ -36,3 +36,5 @@ jobs:
                   IGNORE_GITIGNORED_FILES: true
                   # Custom Java Checkstyle configuration
                   JAVA_FILE_NAME: my_java_checkstyle.xml
+                  # Disable google-java-format
+                  VALIDATE_GOOGLE_JAVA_FORMAT: false
