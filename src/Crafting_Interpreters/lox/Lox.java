@@ -8,9 +8,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class Lox {
+public final class Lox {
     /**
-     * A flag to indicate if an error occurred during the execution of the program.
+     * A flag to indicate if an error occurred
+     * during the execution of the program.
      */
     private static boolean hadError = false;
     

@@ -4,22 +4,22 @@ class Token {
     /**
      * The type of the token.
      */
-    public final TokenType type;
+    private final TokenType type;
 
     /**
      * The lexeme of the token.
      */
-    public final String lexeme;
+    private final String lexeme;
 
     /**
      * The literal value of the token.
      */
-    public final Object literal;
+    private final Object literal;
 
     /**
      * The line number in the source code where the token appears.
      */
-    public final int line; 
+    private final int line; 
 
 
     /**

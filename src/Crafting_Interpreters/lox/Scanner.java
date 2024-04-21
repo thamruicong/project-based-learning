@@ -7,7 +7,7 @@ import java.util.Map;
 
 import static lox.TokenType.*;
 
-@SuppressWarnings("avoidstarimport")
+@SuppressWarnings("checkstyle:avoidstarimport")
 class Scanner {
 
     /**
