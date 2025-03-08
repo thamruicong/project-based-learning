@@ -12,7 +12,9 @@ from util import get_windows_username
 options = Options()
 options.add_argument("--headless")  # Run Chrome in headless mode (without GUI)
 options.add_argument("--disable-gpu")  # Recommended for some environments
-options.add_argument("--window-size=1920x1080")  # Set a virtual screen size for consistency
+options.add_argument(
+    "--window-size=1920x1080"
+)  # Set a virtual screen size for consistency
 options.add_argument("--no-sandbox")
 
 # Specify the location of the Microsoft Edge binary (if needed)
@@ -32,7 +34,9 @@ profile_name = "Default"  # Modify with the profile you want to use
 # options.add_argument(f"--profile-directory={profile_name}")  # Specific profile folder
 
 # Initialize WebDriver with automatic driver management
-driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()), options=options)
+driver = webdriver.Edge(
+    service=EdgeService(EdgeChromiumDriverManager().install()), options=options
+)
 
 # Open a website
 driver.get("https://www.mousehuntgame.com/")
@@ -41,14 +45,16 @@ driver.get("https://www.mousehuntgame.com/")
 try:
     # Wait for a button to be clickable
     button = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.CLASS_NAME, "loginPage-signInButton"))  # Change to the button's ID or selector
+        EC.element_to_be_clickable(
+            (By.CLASS_NAME, "loginPage-signInButton")
+        )  # Change to the button's ID or selector
     )
-    
+
     # Perform a click action
     button.click()
 
     print("Button clicked successfully!")
-    
+
 except Exception as e:
     print(f"Error occurred: {e}")
 

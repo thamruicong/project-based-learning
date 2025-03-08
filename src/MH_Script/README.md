@@ -34,6 +34,6 @@ As of writing this (08/03/2025), I am running this script in WSL on Microsoft Ed
 
 Currently stuck on this error
 
-```
+```python
 ERROR: Microsoft Edge can't read and write data to its data directory
 ```
