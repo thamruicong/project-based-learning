@@ -1,4 +1,6 @@
 {
     "dotnet.defaultSolution": "RPG_Game/RPG_Game.sln",
-    "editor.formatOnSave": true
+
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
