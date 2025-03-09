@@ -22,15 +22,14 @@ From root directory, perform these commands:
 ```bash
 cd src/MH_Script
 
-python -m venv venv
+python3 -m venv venv
 
-source venv/bin/activate  # Mac/Linux
-venv\Scripts\activate  # Windows
+source venv/bin/activate  # Mac/Linux/bash
 
 pip install -r requirements.txt
 ```
 
-As of writing this (08/03/2025), I am running this script in WSL on Microsoft Edge.
+As of writing this (08/03/2025), I am running this script in WSL on Google Chrome.
 
 Currently stuck on this error
 

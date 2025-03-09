@@ -1,41 +1,45 @@
+import os
 import tempfile
+import stat
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.edge.options import Options
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
-from selenium.webdriver.edge.service import Service as EdgeService
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service as ChromeService
 from util import get_windows_username
 
 # Set up headless Chrome options
 options = Options()
-options.add_argument("--headless")  # Run Chrome in headless mode (without GUI)
+# options.add_argument("--headless")  # Run Chrome in headless mode (without GUI)
 options.add_argument("--disable-gpu")  # Recommended for some environments
 options.add_argument(
     "--window-size=1920x1080"
 )  # Set a virtual screen size for consistency
 options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
 
-# Specify the location of the Microsoft Edge binary (if needed)
-options.binary_location = "/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"  # Path to Edge on Windows in WSL
+# Specify the location of the Chrome binary (if needed)
+options.binary_location = "/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"  # Path to Chrome on Windows in WSL
 
 # Path to the user data directory
-windows_username = get_windows_username()
-user_data_dir = f"/mnt/c/Users/{windows_username}/AppData/Local/Microsoft/Edge/User Data"  # Modify with your actual path
-profile_name = "Default"  # Modify with the profile you want to use
+# windows_username = get_windows_username()
+# user_data_dir = f"/mnt/c/Users/{windows_username}/AppData/Local/Google/Chrome/User Data"  # Chrome user data path
+# profile_name = "Default"  # Modify with the profile you want to use
 
 # Create a temporary directory for user data
-# temp_dir = tempfile.mkdtemp()
-# options.add_argument(f"--user-data-dir={temp_dir}")
+temp_dir = tempfile.mkdtemp()
+os.chmod(temp_dir, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)
+options.add_argument(f"--user-data-dir={temp_dir}")
 
-# Set the path to your Edge user data directory
+# Set the path to your Chrome user data directory
 # options.add_argument(f"--user-data-dir={user_data_dir}")  # Path to user data
 # options.add_argument(f"--profile-directory={profile_name}")  # Specific profile folder
 
 # Initialize WebDriver with automatic driver management
-driver = webdriver.Edge(
-    service=EdgeService(EdgeChromiumDriverManager().install()), options=options
+driver = webdriver.Chrome(
+    service=ChromeService(ChromeDriverManager().install()), options=options
 )
 
 # Open a website
