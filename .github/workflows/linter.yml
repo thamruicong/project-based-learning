@@ -39,5 +39,3 @@ jobs:
                   JAVA_FILE_NAME: my_java_checkstyle.xml
                   # Disable google-java-format
                   VALIDATE_GOOGLE_JAVA_FORMAT: false
-
-                  MARKDOWN_CONFIG_FILE: .markdown_lint.yml
