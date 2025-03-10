@@ -1,4 +1,11 @@
 {
     "dotnet.defaultSolution": "RPG_Game/RPG_Game.sln",
-    "editor.formatOnSave": true
+
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true
+    }
 }
