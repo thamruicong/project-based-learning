@@ -1,6 +1,9 @@
-from time import sleep
-
-from helper import click_all_gift_and_ticket, wait_and_click
+from helper import (
+    click_all_gift_and_ticket,
+    wait_and_click,
+    wait_and_find_element,
+    wait_and_find_elements,
+)
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service as ChromeService
@@ -22,7 +25,7 @@ driver = webdriver.Chrome(
 driver.get("https://www.mousehuntgame.com/")
 
 try:
-    if driver.find_elements(By.CLASS_NAME, "loginFormContainer"):
+    if wait_and_find_elements(driver, (By.CLASS_NAME, "loginFormContainer")):
         print("Start login process...")
 
         # If in first login menu, click on "START NEW GAME"
@@ -31,14 +34,11 @@ try:
             "//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', "
             "'abcdefghijklmnopqrstuvwxyz'), '{}')]".format(login_text.lower())
         )
-        if driver.find_elements(
-            By.XPATH,
-            xpath_expr,
-        ):
-            wait_and_click(driver, By.CLASS_NAME, "loginPage-signInButton")
+        if wait_and_find_elements(driver, (By.XPATH, xpath_expr)):
+            wait_and_click(driver, (By.CLASS_NAME, "loginPage-signInButton"))
 
-        username_field = driver.find_element(By.NAME, "username")
-        password_field = driver.find_element(By.NAME, "password")
+        username_field = wait_and_find_element(driver, (By.NAME, "username"))
+        password_field = wait_and_find_element(driver, (By.NAME, "password"))
 
         username_field.send_keys(get_username())
         password_field.send_keys(get_password())
@@ -50,15 +50,11 @@ try:
 
     print("Start main script...")
 
-    wait_and_click(driver, By.CLASS_NAME, "friends")
-
-    sleep(5)  # Wait for load
+    wait_and_click(driver, (By.CLASS_NAME, "friends"))
 
     click_all_gift_and_ticket(driver)
 
-    wait_and_click(driver, By.CLASS_NAME, "pagerView-nextPageLink")
-
-    sleep(5)  # Wait for load
+    wait_and_click(driver, (By.CLASS_NAME, "pagerView-nextPageLink"))
 
     click_all_gift_and_ticket(driver)
 

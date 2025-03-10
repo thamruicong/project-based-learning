@@ -46,11 +46,12 @@ def init_options(options: Options):
     )  # Specific profile folder
 
     # Add other options as needed
-    # options.add_argument("--headless")  # Run Chrome in headless mode (without GUI)
+    # options.add_argument("--headless=new")  # Run Chrome in headless mode (without GUI)
     options.add_argument("--disable-gpu")  # Recommended for some environments
     options.add_argument(
-        "--window-size=1920x1080"
+        "--window-size=1920,1080"
     )  # Set a virtual screen size for consistency
+    options.add_argument("--start-maximized")  # Start Chrome maximized
     options.add_argument(
         "disable-infobars"
     )  # Disable the "Chrome is being controlled by automated software" notification

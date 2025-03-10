@@ -5,28 +5,39 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 
-def wait_and_click(driver: webdriver.Chrome, by: str, element_id: str):
-    # Wait for a button to be clickable
-    button = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((by, element_id))
-    )
-    # Perform a click action
+def wait_for(driver: webdriver.Chrome, condition, locator=None):
+    """Generic wait function to handle different conditions."""
+    return WebDriverWait(driver, 10).until(condition(locator) if locator else condition)
+
+
+def wait_and_click(driver: webdriver.Chrome, locator):
+    """Waits for an element (or WebElement) to be clickable and clicks it."""
+    button = wait_for(driver, EC.element_to_be_clickable, locator)
     button.click()
 
 
-def wait_for_element_and_click(driver: webdriver.Chrome, web_element: WebElement):
-    # Wait for a button to be clickable
-    button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(web_element))
-    # Perform a click action
-    button.click()
+def wait_and_find_elements(driver: webdriver.Chrome, locator):
+    """
+    Waits for all elements matching the given locator to be present in the DOM.
+    """
+    return wait_for(driver, EC.presence_of_all_elements_located, locator)
+
+
+def wait_and_find_element(driver: webdriver.Chrome, locator):
+    """
+    Waits for the first element matching the given locator to be present in the DOM.
+    """
+    return wait_for(driver, EC.presence_of_element_located, locator)
 
 
 def click_all_gift_and_ticket(driver: webdriver.Chrome):
-    gift_buttons = driver.find_elements(By.CLASS_NAME, "sendGift")
-    raffle_buttons = driver.find_elements(By.CLASS_NAME, "sendTicket")
+    """Clicks all enabled gift and ticket buttons."""
+    buttons = {
+        "gift": (By.CLASS_NAME, "sendGift"),
+        "ticket": (By.CLASS_NAME, "sendTicket"),
+    }
 
-    for gift_button, raffle_button in zip(gift_buttons, raffle_buttons):
-        if "disabled" not in gift_button.get_attribute("class"):
-            wait_for_element_and_click(driver, gift_button)
-        if "disabled" not in raffle_button.get_attribute("class"):
-            wait_for_element_and_click(driver, raffle_button)
+    for key, locator in buttons.items():
+        for button in wait_and_find_elements(driver, locator):
+            if "disabled" not in button.get_attribute("class"):
+                wait_and_click(driver, button)
