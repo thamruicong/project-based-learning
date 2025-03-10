@@ -2,7 +2,7 @@
 
 Date Started: 08/03/2025
 
-Date Completed:
+Date Completed: 10/03/2025
 
 This is a project that attempts to create a Mousehunt script that automatically gifts 25 gifts and 20 raffle tickets to the top most active friends.
 
