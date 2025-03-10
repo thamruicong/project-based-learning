@@ -1,6 +1,6 @@
 from time import sleep
 
-from helper import wait_and_click, click_all_gift_and_ticket
+from helper import click_all_gift_and_ticket, wait_and_click
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service as ChromeService
