@@ -1,8 +1,9 @@
-import subprocess
 import os
 import shutil
-from selenium.webdriver.chrome.options import Options
+import subprocess
+
 from dotenv import load_dotenv
+from selenium.webdriver.chrome.options import Options
 
 load_dotenv()
 
@@ -45,7 +46,7 @@ def init_options(options: Options):
     )  # Specific profile folder
 
     # Add other options as needed
-    options.add_argument("--headless")  # Run Chrome in headless mode (without GUI)
+    # options.add_argument("--headless")  # Run Chrome in headless mode (without GUI)
     options.add_argument("--disable-gpu")  # Recommended for some environments
     options.add_argument(
         "--window-size=1920x1080"
