@@ -6,11 +6,11 @@ from helper import (
 )
 from logger import log, log_error, log_success
 from selenium import webdriver
-from selenium_stealth import stealth
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium_stealth import stealth
 from util import get_password, get_username, init_options
 from webdriver_manager.chrome import ChromeDriverManager
 
