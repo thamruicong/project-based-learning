@@ -8,6 +8,12 @@ This is a project that attempts to create a Mousehunt script that automatically 
 
 I am running this script in _Windows command-line_ on _Google Chrome_.
 
+**NOTE: Currently linked to Windows Task Scheduler with properties:**
+
+- Run whether user is logged on or not
+- Trigger at _8:00pm_ daily
+- Starts the `run_mh_script.bat` program
+
 Dependencies:
 
 - selenium 4.29.0
@@ -15,7 +21,7 @@ Dependencies:
 
 References:
 
--
+- [https://stackoverflow.com/questions/68289474/selenium-headless-how-to-bypass-cloudflare-detection-using-selenium](https://stackoverflow.com/questions/68289474/selenium-headless-how-to-bypass-cloudflare-detection-using-selenium)
 
 ## Setup Instructions
 

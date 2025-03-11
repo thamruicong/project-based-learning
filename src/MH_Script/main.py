@@ -4,11 +4,13 @@ from helper import (
     wait_and_find_element,
     wait_and_find_elements,
 )
+from logger import log, log_error, log_success
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium_stealth import stealth
 from util import get_password, get_username, init_options
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -21,12 +23,24 @@ driver = webdriver.Chrome(
     service=ChromeService(ChromeDriverManager().install()), options=options
 )
 
-# Open a website
-driver.get("https://www.mousehuntgame.com/")
+stealth(
+    driver,
+    languages=["en-US", "en"],
+    vendor="Google Inc.",
+    platform="Win32",
+    webgl_vendor="Intel Inc.",
+    renderer="Intel Iris OpenGL Engine",
+    fix_hairline=True,
+)
+
+log("Starting script...")
 
 try:
+    # Open a website
+    driver.get("https://www.mousehuntgame.com/")
+
     if wait_and_find_elements(driver, (By.CLASS_NAME, "loginFormContainer")):
-        print("Start login process...")
+        log("Starting login process...")
 
         # If in first login menu, click on "START NEW GAME"
         login_text = "START NEW GAME"
@@ -46,9 +60,9 @@ try:
         # Submit the form (Either by pressing Enter or clicking a login button)
         password_field.send_keys(Keys.RETURN)  # Press Enter
 
-        print("Login process completed.")
+        log_success("Login process completed.")
 
-    print("Start main script...")
+    log("Starting main script...")
 
     wait_and_click(driver, (By.CLASS_NAME, "friends"))
 
@@ -58,10 +72,13 @@ try:
 
     click_all_gift_and_ticket(driver)
 
-    print("Main script completed.")
+    log_success("Main script completed.")
+
+    log_success("Script completed successfully.")
 
 except Exception as e:
     print(f"Error occurred: {e}")
+    log_error(f"Error occurred: {e}")
 
 finally:
     # Close the browser window after actions are complete
