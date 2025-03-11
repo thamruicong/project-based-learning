@@ -3,6 +3,7 @@ import shutil
 import subprocess
 
 from dotenv import load_dotenv
+from logger import log, log_success
 from selenium.webdriver.chrome.options import Options
 
 load_dotenv()
@@ -32,6 +33,8 @@ def get_password():
 
 
 def init_options(options: Options):
+    log("Initializing Chrome options...")
+
     # Set the path to your Chrome user data directory
     dir_path = os.path.join(os.getcwd(), "selenium")
     profile_name = "Default"
@@ -65,3 +68,5 @@ def init_options(options: Options):
 
     # Specify the location of the Chrome binary (if needed)
     options.binary_location = r"C:\Program Files\Google\Chrome\Application\chrome.exe"  # Path to Chrome on Windows
+
+    log_success("Chrome options initialized.")

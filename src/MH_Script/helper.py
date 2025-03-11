@@ -1,3 +1,4 @@
+from logger import log, log_success
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -36,7 +37,11 @@ def click_all_gift_and_ticket(driver: webdriver.Chrome):
         "ticket": (By.CLASS_NAME, "sendTicket"),
     }
 
+    log("Clicking all gift and ticket buttons...")
+
     for key, locator in buttons.items():
         for button in wait_and_find_elements(driver, locator):
             if "disabled" not in button.get_attribute("class"):
                 wait_and_click(driver, button)
+
+    log_success("All gift and ticket buttons clicked.")
