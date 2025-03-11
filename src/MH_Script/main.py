@@ -5,6 +5,7 @@ from helper import (
     wait_and_find_elements,
 )
 from selenium import webdriver
+from selenium_stealth import stealth
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
@@ -19,6 +20,16 @@ init_options(options)
 # Initialize WebDriver with automatic driver management
 driver = webdriver.Chrome(
     service=ChromeService(ChromeDriverManager().install()), options=options
+)
+
+stealth(
+    driver,
+    languages=["en-US", "en"],
+    vendor="Google Inc.",
+    platform="Win32",
+    webgl_vendor="Intel Inc.",
+    renderer="Intel Iris OpenGL Engine",
+    fix_hairline=True,
 )
 
 # Open a website
@@ -59,6 +70,8 @@ try:
     click_all_gift_and_ticket(driver)
 
     print("Main script completed.")
+
+    driver.save_screenshot("screenshot.png")
 
 except Exception as e:
     print(f"Error occurred: {e}")

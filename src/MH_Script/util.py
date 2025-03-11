@@ -46,7 +46,7 @@ def init_options(options: Options):
     )  # Specific profile folder
 
     # Add other options as needed
-    # options.add_argument("--headless=new")  # Run Chrome in headless mode (without GUI)
+    options.add_argument("--headless=new")  # Run Chrome in headless mode (without GUI)
     options.add_argument("--disable-gpu")  # Recommended for some environments
     options.add_argument(
         "--window-size=1920,1080"
