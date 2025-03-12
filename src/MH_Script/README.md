@@ -11,13 +11,14 @@ I am running this script in _Windows command-line_ on _Google Chrome_.
 **NOTE: Currently linked to Windows Task Scheduler with properties:**
 
 - Run whether user is logged on or not
-- Trigger at _8:00pm_ daily
+- Trigger at _9:00am_ daily
 - Starts the `run_mh_script.bat` program
 
 Dependencies:
 
 - selenium 4.29.0
 - webdriver-manager 4.0.2
+- selenium-stealth 1.0.6
 
 References:
 
