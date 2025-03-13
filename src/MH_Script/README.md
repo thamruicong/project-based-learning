@@ -11,6 +11,7 @@ I am running this script in _Windows command-line_ on _Google Chrome_.
 **NOTE: Currently linked to Windows Task Scheduler with properties:**
 
 - Run whether user is logged on or not
+- Run task as soon as possible after a scheduled start is missed
 - Trigger at _9:00am_ daily
 - Starts the `run_mh_script.bat` program
 
