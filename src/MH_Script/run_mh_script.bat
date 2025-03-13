@@ -9,6 +9,6 @@ python main.py
 call venv\Scripts\deactivate.bat
 
 REM OPEN LOG FOLDER IN EXPLORER
-start explorer "%CD%\log"
+explorer.exe /e,"%~dp0log"
 
 exit
