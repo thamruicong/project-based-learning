@@ -1,7 +1,5 @@
 package lox;
 
-import java.util.List;
-
 abstract class Expr {
   interface Visitor<R> {
     R visitBinaryExpr(Binary expr);
@@ -21,9 +19,9 @@ abstract class Expr {
       return visitor.visitBinaryExpr(this);
     }
 
-    final Expr left;
-    final Token operator;
-    final Expr right;
+    final protected Expr left;
+    final protected Token operator;
+    final protected Expr right;
   }
   static class Grouping extends Expr {
     Grouping(Expr expression) {
@@ -35,7 +33,7 @@ abstract class Expr {
       return visitor.visitGroupingExpr(this);
     }
 
-    final Expr expression;
+    final protected Expr expression;
   }
   static class Literal extends Expr {
     Literal(Object value) {
@@ -47,7 +45,7 @@ abstract class Expr {
       return visitor.visitLiteralExpr(this);
     }
 
-    final Object value;
+    final protected Object value;
   }
   static class Unary extends Expr {
     Unary(Token operator, Expr right) {
@@ -60,8 +58,8 @@ abstract class Expr {
       return visitor.visitUnaryExpr(this);
     }
 
-    final Token operator;
-    final Expr right;
+    final protected Token operator;
+    final protected Expr right;
   }
 
   abstract <R> R accept(Visitor<R> visitor);

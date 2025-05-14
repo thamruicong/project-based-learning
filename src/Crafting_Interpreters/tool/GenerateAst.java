@@ -6,10 +6,17 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GenerateAst {
+  // Make the constructor private.
+  private GenerateAst() {
+    throw new AssertionError("Cannot instantiate utility class.");
+  }
+
   public static void main(String[] args) throws IOException {
     if (args.length != 1) {
       System.err.println("Usage: generate_ast <output directory>");
-      System.exit(64);
+
+      int exitCode = 64;
+      System.exit(exitCode);
     }
     String outputDir = args[0];
     defineAst(outputDir, "Expr", Arrays.asList(
@@ -20,13 +27,15 @@ public class GenerateAst {
     ));
   }
 
-  private static void defineAst(String outputDir, String baseName, List<String> types) throws IOException {
+  private static void defineAst(
+      String outputDir, String baseName, List<String> types)
+      throws IOException {
     String path = outputDir + "/" + baseName + ".java";
     PrintWriter writer = new PrintWriter(path, "UTF-8");
 
     writer.println("package lox;");
-    writer.println();
-    writer.println("import java.util.List;");
+    // writer.println();
+    // writer.println("import java.util.List;");
     writer.println();
     writer.println("abstract class " + baseName + " {");
 
@@ -47,18 +56,22 @@ public class GenerateAst {
     writer.close();
   }
 
-  private static void defineVisitor(PrintWriter writer, String baseName, List<String> types) {
+  private static void defineVisitor(
+      PrintWriter writer, String baseName, List<String> types) {
     writer.println("  interface Visitor<R> {");
 
     for (String type : types) {
       String typeName = type.split(":")[0].trim();
-      writer.println("    R visit" + typeName + baseName + "(" + typeName + " " + baseName.toLowerCase() + ");");
+      writer.println("    R visit" + typeName + baseName + "(" +
+          typeName + " " + baseName.toLowerCase() + ");");
     }
 
     writer.println("  }");
   }
 
-  private static void defineType(PrintWriter writer, String baseName, String className, String fieldList) {
+  private static void defineType(
+      PrintWriter writer, String baseName,
+      String className, String fieldList) {
     writer.println("  static class " + className + " extends " +
         baseName + " {");
 
@@ -78,13 +91,14 @@ public class GenerateAst {
     writer.println();
     writer.println("    @Override");
     writer.println("    <R> R accept(Visitor<R> visitor) {");
-    writer.println("      return visitor.visit" + className + baseName + "(this);");
+    writer.println("      return visitor.visit" +
+        className + baseName + "(this);");
     writer.println("    }");
 
     // Fields
     writer.println();
     for (String field : fields) {
-      writer.println("    final " + field + ";");
+      writer.println("    final protected " + field + ";");
     }
 
     writer.println("  }");

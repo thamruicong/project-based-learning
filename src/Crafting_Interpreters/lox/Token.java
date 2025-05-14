@@ -9,7 +9,7 @@ class Token {
     /**
      * The lexeme of the token.
      */
-    protected final String lexeme;
+    private final String lexeme;
 
     /**
      * The literal value of the token.
@@ -45,5 +45,14 @@ class Token {
     @Override
     public String toString() {
         return type + " " + lexeme + " " + literal;
+    }
+
+    /**
+     * Gets the lexeme.
+     * 
+     * @return The lexeme.
+     */
+    public String getLexeme() {
+        return lexeme;
     }
 }
