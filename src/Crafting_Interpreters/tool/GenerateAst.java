@@ -5,18 +5,23 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
 
-public class GenerateAst {
+public final class GenerateAst {
   // Make the constructor private.
   private GenerateAst() {
     throw new AssertionError("Cannot instantiate utility class.");
   }
 
+  /**
+   * Defines the structure of AST classes.
+   * 
+   * @param args The command line arguments. The first argument is the output
+   *             directory.
+   * @throws IOException If an I/O error occurs.
+   */
   public static void main(String[] args) throws IOException {
     if (args.length != 1) {
       System.err.println("Usage: generate_ast <output directory>");
-
-      int exitCode = 64;
-      System.exit(exitCode);
+      System.exit(1);
     }
     String outputDir = args[0];
     defineAst(outputDir, "Expr", Arrays.asList(
@@ -62,8 +67,8 @@ public class GenerateAst {
 
     for (String type : types) {
       String typeName = type.split(":")[0].trim();
-      writer.println("    R visit" + typeName + baseName + "(" +
-          typeName + " " + baseName.toLowerCase() + ");");
+      writer.println("    R visit" + typeName + baseName + "("
+          + typeName + " " + baseName.toLowerCase() + ");");
     }
 
     writer.println("  }");
@@ -72,8 +77,8 @@ public class GenerateAst {
   private static void defineType(
       PrintWriter writer, String baseName,
       String className, String fieldList) {
-    writer.println("  static class " + className + " extends " +
-        baseName + " {");
+    writer.println("  static class " + className + " extends " 
+        + baseName + " {");
 
     // Constructor
     writer.println("    " + className + "(" + fieldList + ") {");
@@ -91,14 +96,14 @@ public class GenerateAst {
     writer.println();
     writer.println("    @Override");
     writer.println("    <R> R accept(Visitor<R> visitor) {");
-    writer.println("      return visitor.visit" +
-        className + baseName + "(this);");
+    writer.println("      return visitor.visit" + className
+        + baseName + "(this);");
     writer.println("    }");
 
     // Fields
     writer.println();
     for (String field : fields) {
-      writer.println("    final protected " + field + ";");
+      writer.println("    protected final " + field + ";");
     }
 
     writer.println("  }");
