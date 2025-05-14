@@ -8,18 +8,34 @@ JC = javac
 
 # This uses the line continuation character (\) for readability.
 # Compile .java files in dependency order.
-CLASSES = \
+BASE_CLASSES = \
 		  lox/TokenType.java \
 		  lox/Token.java \
 		  lox/Scanner.java \
 		  lox/Lox.java \
+			tool/GenerateAst.java
 
-default: classes
+# These classes depend on generated classes.
+POST_CLASSES = \
+			lox/AstPrinter.java
 
-classes: $(CLASSES:.java=.class)
+# All classes
+CLASSES = $(BASE_CLASSES) $(POST_CLASSES)
+
+default: build
+
+build: compile_base generate_ast compile_post
+
+compile_base: $(BASE_CLASSES:.java=.class)
+
+generate_ast: compile_base
+	java tool/GenerateAst lox
+
+compile_post: $(POST_CLASSES:.java=.class)
 
 clean:
-	$(RM) lox/*.class
+	find . -name "*.class" -type f -delete
+	$(RM) lox/Expr.java
 	
-run:
+run: build
 	java lox/Lox
