@@ -9,7 +9,7 @@ class Token {
     /**
      * The lexeme of the token.
      */
-    private final String lexeme;
+    protected final String lexeme;
 
     /**
      * The literal value of the token.

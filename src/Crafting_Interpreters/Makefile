@@ -13,13 +13,18 @@ CLASSES = \
 		  lox/Token.java \
 		  lox/Scanner.java \
 		  lox/Lox.java \
+			lox/AstPrinter.java \
+			tool/GenerateAst.java \
 
 default: classes
 
 classes: $(CLASSES:.java=.class)
 
 clean:
-	$(RM) lox/*.class
+	find . -name "*.class" -type f -delete
 	
 run:
 	java lox/Lox
+
+ast:
+	java tool/GenerateAst lox
