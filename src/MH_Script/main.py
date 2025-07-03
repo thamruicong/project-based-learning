@@ -1,5 +1,6 @@
 from helper import (
     click_all_gift_and_ticket,
+    click_all_accept_gifts,
     wait_and_click,
     wait_and_find_element,
     wait_and_find_elements,
@@ -62,7 +63,8 @@ try:
 
         log_success("Login process completed.")
 
-    log("Starting main script...")
+    # Gifting & Ticketing
+    log("Starting gifting and ticketing...")
 
     wait_and_click(driver, (By.CLASS_NAME, "friends"))
 
@@ -72,7 +74,16 @@ try:
 
     click_all_gift_and_ticket(driver)
 
-    log_success("Main script completed.")
+    log_success("Gifting and ticketing completed.")
+
+    # Claim Gifts
+    log("Starting to claim gifts...")
+
+    wait_and_click(driver, (By.ID, "hgbar_freegifts"))
+
+    click_all_accept_gifts(driver)
+
+    log_success("Gifts claimed.")
 
     log_success("Script completed successfully.")
 

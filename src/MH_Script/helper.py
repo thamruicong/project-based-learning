@@ -39,9 +39,25 @@ def click_all_gift_and_ticket(driver: webdriver.Chrome):
 
     log("Clicking all gift and ticket buttons...")
 
-    for key, locator in buttons.items():
+    for _, locator in buttons.items():
         for button in wait_and_find_elements(driver, locator):
             if "disabled" not in button.get_attribute("class"):
                 wait_and_click(driver, button)
 
     log_success("All gift and ticket buttons clicked.")
+
+
+def click_all_accept_gifts(driver: webdriver.Chrome):
+    """Clicks all enabled accept gift buttons."""
+    buttons = {
+        "accept": (By.CLASS_NAME, "claim"),
+    }
+
+    log("Clicking all accept gift buttons...")
+
+    for _, locator in buttons.items():
+        for button in wait_and_find_elements(driver, locator):
+            if "disabled" not in button.get_attribute("class"):
+                wait_and_click(driver, button)
+
+    log_success("All accept gift buttons clicked.")
