@@ -1,6 +1,6 @@
 from helper import (
-    click_all_gift_and_ticket,
     click_all_accept_gifts,
+    click_all_gift_and_ticket,
     wait_and_click,
     wait_and_find_element,
     wait_and_find_elements,
