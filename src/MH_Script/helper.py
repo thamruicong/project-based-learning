@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 def wait_for(driver: webdriver.Chrome, condition, locator=None):
     """Generic wait function to handle different conditions."""
-    return WebDriverWait(driver, 10).until(condition(locator) if locator else condition)
+    return WebDriverWait(driver, 20).until(condition(locator) if locator else condition)
 
 
 def wait_and_click(driver: webdriver.Chrome, locator):
