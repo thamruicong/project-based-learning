@@ -6,7 +6,7 @@ Date Completed:
 
 This is a project to learn about GoLang & crypto stuff. [Link to challenge.](https://cryptopals.com/)
 
-Currently At: Set 1 Challenge 2
+Currently At: Set 1 Challenge 3
 
 ## To run main
 
