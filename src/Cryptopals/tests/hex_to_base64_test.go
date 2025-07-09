@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"Cryptopals/utils"
+	"cryptopals/utils"
 	"testing"
 )
 
