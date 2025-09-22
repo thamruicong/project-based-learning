@@ -53,14 +53,14 @@ Create a Task with these configurations:
 
 ### General
 
-![alt text](readme_assets\task_scheduler_general.png)
+![alt text](readme_assets/task_scheduler_general.png)
 
 ### Triggers
 
 Create a new Trigger.
 
-![alt_text](readme_assets\task_scheduler_triggers.png)
-![alt text](readme_assets\task_scheduler_triggers_2.png)
+![alt_text](readme_assets/task_scheduler_triggers.png)
+![alt text](readme_assets/task_scheduler_triggers_2.png)
 
 ### Actions
 
@@ -69,13 +69,13 @@ Create a new Action.
 - Program/Script: This field should point to the `run_mh_script.bat` batch file in this project.
 - Start in (optional): This field should point to the root of this repository `project-based-learning`.
 
-![alt text](readme_assets\task_scheduler_actions.png)
-![alt text](readme_assets\task_scheduler_actions_2.png)
+![alt text](readme_assets/task_scheduler_actions.png)
+![alt text](readme_assets/task_scheduler_actions_2.png)
 
 ### Conditions
 
-![alt text](readme_assets\task_scheduler_conditions.png)
+![alt text](readme_assets/task_scheduler_conditions.png)
 
 ### Settings
 
-![alt text](readme_assets\task_scheduler_settings.png)
+![alt text](readme_assets/task_scheduler_settings.png)
